@@ -23,11 +23,29 @@ struct GridView: View {
                             .frame(width: size, height: size)
                             .overlay {
                                 ZStack {
+                                    if node == grid.startNode {
+                                        RoundedRectangle(cornerRadius: 0)
+                                            .fill(.blue.opacity(0.8))
+                                            .padding(0)
+                                            .transition(.scale.combined(with: .opacity))
+                                    }
+                                    if node == grid.endNode {
+                                        RoundedRectangle(cornerRadius: 0)
+                                            .fill(.green.opacity(0.8))
+                                            .padding(0)
+                                            .transition(.scale.combined(with: .opacity))
+                                    }
                                     if !node.walkable {
                                         RoundedRectangle(cornerRadius: 0)
                                             .fill(.gray.opacity(0.8))
                                             .padding(0)
-                                            .transition(.scale.combined(with: .opacity))
+                                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
+                                    }
+                                    if node.visited {
+                                        RoundedRectangle(cornerRadius: 0)
+                                            .fill(.orange.opacity(0.8))
+                                            .padding(0)
+                                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
                                     }
 //                                    Text("\(node.x):\(node.y)")
 //                                        .font(.footnote)
@@ -42,8 +60,19 @@ struct GridView: View {
                 .onChanged { drag in
                     let x = Int(drag.location.x / size)
                     let y = Int(drag.location.y / size)
-                    withAnimation(.bouncy.speed(1.5)) {
+                    switch grid.drawingMode {
+                    case .start:
+                        grid.setStartNode(x: x, y: y)
+                    case .end:
+                        grid.setEndNode(x: x, y: y)
+                    case .obstacle:
+//                        withAnimation(.bouncy.speed(1.5)) {
                         grid.createObstacle(x: x, y: y)
+//                        }
+                    case .erase:
+//                        withAnimation(.default.speed(1.5)) {
+                        grid.removeObstacle(x: x, y: y)
+//                        }
                     }
                 }
         )
