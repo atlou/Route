@@ -35,6 +35,15 @@ class Grid: ObservableObject {
         return nodes[y * width + x]
     }
     
+    func clear() {
+        for node in nodes {
+            node.setWalkable(true)
+        }
+        startNode = nil
+        endNode = nil
+        objectWillChange.send()
+    }
+    
     func createObstacle(x: Int, y: Int) {
         guard let n = getNode(x: x, y: y) else {
             return
