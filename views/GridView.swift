@@ -7,6 +7,49 @@
 
 import SwiftUI
 
+struct NodeView: View {
+    @ObservedObject var node: Node
+    let size: Double
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: 0)
+            .fill(.white)
+            .padding(1)
+            .frame(width: size, height: size)
+            .overlay {
+                ZStack {
+                    if node == grid.startNode {
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.blue.opacity(0.8))
+                            .padding(0)
+                            .transition(.scale.combined(with: .opacity))
+                    } else if node == grid.endNode {
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.green.opacity(0.8))
+                            .padding(0)
+                            .transition(.scale.combined(with: .opacity))
+                    } else if !node.walkable {
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.gray.opacity(0.8))
+                            .padding(0)
+                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
+                    } else if node.visited {
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.yellow.opacity(0.2))
+                            .padding(0)
+                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
+                            .animation(.default, value: node.visited)
+                    } else if node.onPath {
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.yellow.opacity(1))
+                            .padding(0)
+                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
+                    }
+                }
+            }
+    }
+}
+
 struct GridView: View {
     @ObservedObject var grid: Grid
     let size: Double
@@ -17,40 +60,6 @@ struct GridView: View {
                 HStack(spacing: 0) {
                     ForEach(0..<grid.width, id: \.self) { x in
                         let node: Node = grid.getNode(x: x, y: y)!
-                        RoundedRectangle(cornerRadius: 0)
-                            .fill(.white)
-                            .padding(1)
-                            .frame(width: size, height: size)
-                            .overlay {
-                                ZStack {
-                                    if node == grid.startNode {
-                                        RoundedRectangle(cornerRadius: 0)
-                                            .fill(.blue.opacity(0.8))
-                                            .padding(0)
-                                            .transition(.scale.combined(with: .opacity))
-                                    }
-                                    if node == grid.endNode {
-                                        RoundedRectangle(cornerRadius: 0)
-                                            .fill(.green.opacity(0.8))
-                                            .padding(0)
-                                            .transition(.scale.combined(with: .opacity))
-                                    }
-                                    if !node.walkable {
-                                        RoundedRectangle(cornerRadius: 0)
-                                            .fill(.gray.opacity(0.8))
-                                            .padding(0)
-                                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
-                                    }
-                                    if node.visited {
-                                        RoundedRectangle(cornerRadius: 0)
-                                            .fill(.orange.opacity(0.8))
-                                            .padding(0)
-                                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
-                                    }
-//                                    Text("\(node.x):\(node.y)")
-//                                        .font(.footnote)
-                                }
-                            }
                     }
                 }
             }

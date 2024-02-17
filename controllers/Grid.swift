@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
     case astar
@@ -31,9 +32,10 @@ enum DrawingMode: CaseIterable, Identifiable {
 class Grid: ObservableObject {
     @Published var drawingMode: DrawingMode
     @Published var algo: PathfindingAlgo
-    private var nodes: [Node]
+    @Published var nodes: [Node]
     private(set) var startNode: Node?
     private(set) var endNode: Node?
+    private let aStar: AStar
     
     let width: Int
     let height: Int
@@ -53,6 +55,7 @@ class Grid: ObservableObject {
         self.height = height
         self.drawingMode = .start
         self.algo = .astar
+        self.aStar = AStar(nodes: nodes)
         
         initializeNeighbors()
     }
@@ -74,12 +77,46 @@ class Grid: ObservableObject {
         }
     }
     
-    func run() {
+    func run() async {
         if startNode == nil || endNode == nil { return }
+        clearPath()
         switch algo {
         case .astar:
-            let path = AStar.findPath(start: startNode!, target: endNode!)
+            let path = await aStar.findPath(start: startNode!, target: endNode!) ?? []
+            drawPath(path: path)
         }
+    }
+    
+    func drawVisited(visited: Node) {
+//        withAnimation(.default.speed(2)) {
+            // Your UI updates here
+            setVisited(node: visited)
+//        }
+    }
+    
+    func drawPath(path: [Node]) {
+        var queue = path
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            guard let node = queue.popLast() else {
+                timer.invalidate()
+                return
+            }
+            self.setOnPath(node: node)
+        }
+    }
+    
+    func clearPath() {
+        for node in nodes {
+            if node.walkable {
+                node.reset()
+            }
+        }
+    }
+    
+    func setOnPath(node: Node) {
+        print("setting on path")
+        node.setOnPath()
+        objectWillChange.send()
     }
     
     func getNode(x: Int, y: Int) -> Node? {
@@ -90,14 +127,15 @@ class Grid: ObservableObject {
     }
     
     func setVisited(node: Node) {
-        node.setVisited(true)
+        withAnimation {
+            node.setVisited(true)
+        }
         objectWillChange.send()
     }
     
     func clear() {
         for node in nodes {
-            node.setWalkable(true)
-            node.setVisited(false)
+            node.reset()
         }
         startNode = nil
         endNode = nil

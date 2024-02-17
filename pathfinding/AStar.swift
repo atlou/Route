@@ -7,27 +7,65 @@
 
 import Foundation
 
+extension Task where Success == Never, Failure == Never {
+    static func sleep(seconds: Double) async throws {
+        let duration = UInt64(seconds * 1_000_000_000)
+        try await Task.sleep(nanoseconds: duration)
+    }
+}
+
 class AStar {
-    public static func findPath(start: Node, target: Node) -> [Node]? {
+    var map: [Node: AStarNode] = [:]
+    
+    init(nodes: [Node]) {
+        for node in nodes {
+            let astarNode = AStarNode(node: node)
+            self.map[node] = astarNode
+        }
+    }
+    
+    public func findPath(start: Node, target: Node) async -> [Node]? {
         print("(A-star) start: \(start) target: \(target)")
-        var toSearch: Set<AStarNode> = [AStarNode(node: start)]
+        var toSearch: Set<AStarNode> = []
         var processed: Set<AStarNode> = []
         
+        guard let start = map[start] else {
+            print("can't map start node")
+            return nil
+        }
+        guard let target = map[target] else {
+            print("can't map target node")
+            return nil
+        }
+        
+        toSearch.insert(start)
+        
         while !toSearch.isEmpty {
-            var curr = toSearch.popFirst()!
+            var curr = toSearch.first!
             for t in toSearch {
-                if t.f < curr.f || t.f == curr.f && t.h < curr.h {
+                if t.f < curr.f || (t.f == curr.f && t.h < curr.h) {
                     curr = t
                 }
             }
             
+            toSearch.remove(curr)
             processed.insert(curr)
             
-            if curr.node == target {
-                var currentPathTile = curr
+            do {
+                try await Task.sleep(nanoseconds: 6_000_000)
+            } catch {
+                print("sleep error")
+            }
+            
+            DispatchQueue.main.async {
+                Grid.shared.drawVisited(visited: curr.node)
+            }
+            
+            if curr == target {
+                var currentPathTile = target
                 var path: [Node] = []
                 
-                while currentPathTile.node != start {
+                while currentPathTile != start {
                     path.append(currentPathTile.node)
                     print("added \(currentPathTile.node) to the path")
                     currentPathTile = currentPathTile.prev!
@@ -36,24 +74,26 @@ class AStar {
                 return path
             }
             
-            let neighbors = curr.node.neighbors.map {
-                AStarNode(node: $0)
-            }.filter {
-                $0.node.walkable && !processed.contains($0)
+            let neighbors = curr.node.neighbors.filter {
+                $0.walkable && !processed.contains(self.map[$0]!)
             }
             
-            for neighbor in neighbors {
-                let cost = curr.g + Float(curr.node.getDistance(node: neighbor.node))
+            print("\(curr.node) has \(neighbors.count) neighbors")
+            
+            for neighborNode in neighbors {
+                let neighbor = self.map[neighborNode]!
+                let inSearch = toSearch.contains(neighbor)
+                let cost = curr.g + neighborNode.getDistance(from: curr.node)
                 
-                if !toSearch.contains(neighbor) || cost < neighbor.g {
+                if cost < neighbor.g || !inSearch {
                     neighbor.setG(value: cost)
                     neighbor.setPrev(node: curr)
-                    Grid.shared.setVisited(node: neighbor.node)
-                    
-                    if !toSearch.contains(neighbor) {
-                        neighbor.setH(value: Float(neighbor.node.getDistance(node: target)))
-                        toSearch.insert(neighbor)
-                    }
+                }
+                
+                if !inSearch {
+                    neighbor.setH(value: neighbor.node.getDistance(from: target.node))
+                    print("added neighbor \(neighbor.node)")
+                    toSearch.insert(neighbor)
                 }
             }
         }
@@ -63,7 +103,7 @@ class AStar {
 }
 
 class AStarNode: Hashable {
-    let node: Node
+    private(set) var node: Node
     private(set) var prev: AStarNode?
     private(set) var g: Float
     private(set) var h: Float
@@ -77,14 +117,6 @@ class AStarNode: Hashable {
         self.h = 0
     }
     
-    static func == (lhs: AStarNode, rhs: AStarNode) -> Bool {
-        return lhs.node == rhs.node
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.node)
-    }
-    
     func setPrev(node: AStarNode) {
         self.prev = node
     }
@@ -95,5 +127,13 @@ class AStarNode: Hashable {
     
     func setH(value: Float) {
         self.h = value
+    }
+    
+    static func == (lhs: AStarNode, rhs: AStarNode) -> Bool {
+        lhs.node == rhs.node
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.node)
     }
 }

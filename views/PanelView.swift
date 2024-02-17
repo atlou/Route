@@ -33,9 +33,9 @@ struct PanelView: View {
                 .buttonStyle(.bordered)
 
                 Button("Run") {
-                    withAnimation(.default.speed(2)) {
-                        grid.run()
-                    }
+                        Task {
+                            await grid.run()
+                        }
                 }
                 .buttonStyle(.borderedProminent)
             }
