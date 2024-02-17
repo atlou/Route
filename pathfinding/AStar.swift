@@ -7,13 +7,6 @@
 
 import Foundation
 
-extension Task where Success == Never, Failure == Never {
-    static func sleep(seconds: Double) async throws {
-        let duration = UInt64(seconds * 1_000_000_000)
-        try await Task.sleep(nanoseconds: duration)
-    }
-}
-
 class AStar {
     var map: [Node: AStarNode] = [:]
     
@@ -52,13 +45,13 @@ class AStar {
             processed.insert(curr)
             
             do {
-                try await Task.sleep(nanoseconds: 6_000_000)
+                try await Task.sleep(nanoseconds: UInt64(Grid.shared.speed.ns))
             } catch {
                 print("sleep error")
             }
             
             DispatchQueue.main.async {
-                Grid.shared.drawVisited(visited: curr.node)
+                Grid.shared.visit(node: curr.node)
             }
             
             if curr == target {
@@ -67,7 +60,6 @@ class AStar {
                 
                 while currentPathTile != start {
                     path.append(currentPathTile.node)
-                    print("added \(currentPathTile.node) to the path")
                     currentPathTile = currentPathTile.prev!
                 }
                 
@@ -75,10 +67,8 @@ class AStar {
             }
             
             let neighbors = curr.node.neighbors.filter {
-                $0.walkable && !processed.contains(self.map[$0]!)
+                $0.isWalkable() && !processed.contains(self.map[$0]!)
             }
-            
-            print("\(curr.node) has \(neighbors.count) neighbors")
             
             for neighborNode in neighbors {
                 let neighbor = self.map[neighborNode]!

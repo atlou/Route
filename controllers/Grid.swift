@@ -22,9 +22,25 @@ enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
 
 enum DrawingMode: CaseIterable, Identifiable {
     case start
-    case end
-    case obstacle
+    case target
+    case wall
     case erase
+    
+    var id: Self { self }
+}
+
+enum Speed: Double, CaseIterable, Identifiable {
+    case fast = 0.005
+    case medium = 0.01
+    case slow = 0.05
+    
+    var ms: Double {
+        return rawValue * 1_000
+    }
+    
+    var ns: Double {
+        return rawValue * 1_000_000_000
+    }
     
     var id: Self { self }
 }
@@ -33,14 +49,19 @@ class Grid: ObservableObject {
     @Published var drawingMode: DrawingMode
     @Published var algo: PathfindingAlgo
     @Published var nodes: [Node]
-    private(set) var startNode: Node?
-    private(set) var endNode: Node?
+    @Published var startNode: Node?
+    @Published var endNode: Node?
+    @Published var speed: Speed
+    private(set) var isRunning: Bool
+    private(set) var isPathDisplayed: Bool
     private let aStar: AStar
     
     let width: Int
     let height: Int
     
     static let shared = Grid(width: 26, height: 26)
+    
+    let PATH_DRAWING_SPEED = 0.01
     
     private init(width: Int, height: Int) {
         // initialize nodes
@@ -54,9 +75,11 @@ class Grid: ObservableObject {
         self.width = width
         self.height = height
         self.drawingMode = .start
+        self.isRunning = false
         self.algo = .astar
         self.aStar = AStar(nodes: nodes)
-        
+        self.isPathDisplayed = false
+        self.speed = .medium
         initializeNeighbors()
     }
     
@@ -77,48 +100,59 @@ class Grid: ObservableObject {
         }
     }
     
-    func run() async {
+    func run() {
+        if isRunning { return }
         if startNode == nil || endNode == nil { return }
+        
+        isRunning = true
         clearPath()
-        switch algo {
-        case .astar:
-            let path = await aStar.findPath(start: startNode!, target: endNode!) ?? []
-            drawPath(path: path)
+        Task {
+            await findPath()
         }
     }
     
-    func drawVisited(visited: Node) {
-//        withAnimation(.default.speed(2)) {
-            // Your UI updates here
-            setVisited(node: visited)
-//        }
+    func findPath() async {
+        switch algo {
+        case .astar:
+            let path = await aStar.findPath(start: startNode!, target: endNode!) ?? []
+            await MainActor.run {
+                displayPath(path: path) {
+                    self.isRunning = false
+                    self.isPathDisplayed = true
+                }
+            }
+        }
+    }
+
+    func visit(node: Node) {
+        withAnimation(.spring.speed(1.5)) {
+            node.state = .visited
+        }
     }
     
-    func drawPath(path: [Node]) {
+    func displayPath(path: [Node], completion: @escaping () -> Void) {
         var queue = path
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+        _ = Timer.scheduledTimer(withTimeInterval: PATH_DRAWING_SPEED, repeats: true) { timer in
             guard let node = queue.popLast() else {
                 timer.invalidate()
+                DispatchQueue.main.async { completion() }
                 return
             }
-            self.setOnPath(node: node)
+            withAnimation(.default.speed(1.5)) {
+                node.state = .path
+            }
         }
     }
     
     func clearPath() {
-        for node in nodes {
-            if node.walkable {
-                node.reset()
+        withAnimation(.default.speed(1.5)) {
+            for node in nodes {
+                node.state = .base
             }
         }
+        isPathDisplayed = false
     }
-    
-    func setOnPath(node: Node) {
-        print("setting on path")
-        node.setOnPath()
-        objectWillChange.send()
-    }
-    
+
     func getNode(x: Int, y: Int) -> Node? {
         if y < 0 || y >= height { return nil }
         if x < 0 || x >= width { return nil }
@@ -126,38 +160,45 @@ class Grid: ObservableObject {
         return nodes[y * width + x]
     }
     
-    func setVisited(node: Node) {
-        withAnimation {
-            node.setVisited(true)
-        }
-        objectWillChange.send()
-    }
-    
     func clear() {
+        if isRunning { return }
         for node in nodes {
             node.reset()
         }
         startNode = nil
         endNode = nil
-        objectWillChange.send()
+    }
+    
+    func draw(x: Int, y: Int) {
+        if isPathDisplayed { clearPath() }
+        switch drawingMode {
+        case .start:
+            setStartNode(x: x, y: y)
+        case .target:
+            setEndNode(x: x, y: y)
+        case .wall:
+            createObstacle(x: x, y: y)
+        case .erase:
+            removeObstacle(x: x, y: y)
+        }
     }
     
     func setStartNode(x: Int, y: Int) {
         guard let n = getNode(x: x, y: y) else {
             return
         }
-        n.setWalkable(true)
+        startNode?.type = .normal
+        n.type = .start
         startNode = n
-        objectWillChange.send()
     }
     
     func setEndNode(x: Int, y: Int) {
         guard let n = getNode(x: x, y: y) else {
             return
         }
-        n.setWalkable(true)
+        endNode?.type = .normal
+        n.type = .target
         endNode = n
-        objectWillChange.send()
     }
     
     func createObstacle(x: Int, y: Int) {
@@ -165,16 +206,16 @@ class Grid: ObservableObject {
             return
         }
         if n != startNode && n != endNode {
-            n.setWalkable(false)
+            n.type = .wall
         }
-        objectWillChange.send()
     }
     
     func removeObstacle(x: Int, y: Int) {
         guard let n = getNode(x: x, y: y) else {
             return
         }
-        n.setWalkable(true)
-        objectWillChange.send()
+        if n != startNode && n != endNode {
+            n.type = .normal
+        }
     }
 }

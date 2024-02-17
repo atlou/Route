@@ -27,7 +27,6 @@ struct ContentView: View {
                         Spacer()
                     }
                 }
-                
             }
             .fixedSize(horizontal: false, vertical: true)
         }

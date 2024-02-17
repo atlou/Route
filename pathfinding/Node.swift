@@ -8,13 +8,14 @@
 import Foundation
 
 enum NodeState {
-    case none
+    case base
     case visited
     case path
 }
 
 enum NodeType {
-    case walkable
+    case normal
+    case wall
     case start
     case target
 }
@@ -23,30 +24,33 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
     let x: Int
     let y: Int
     private(set) var neighbors: Set<Node>
-    @Published var walkable: Bool
-    @Published var visited: Bool
-    @Published var onPath: Bool
-    @Published var start: Bool
-    @Published var target: Bool
+//    @Published var walkable: Bool
+//    @Published var visited: Bool
+//    @Published var onPath: Bool
+//    @Published var start: Bool
+//    @Published var target: Bool
+
+    @Published var type: NodeType
+    @Published var state: NodeState
 
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
         self.neighbors = []
-        self.walkable = true
-        self.visited = false
-        self.onPath = false
-        self.start = false
-        self.target = false
+        self.type = .normal
+        self.state = .base
     }
 
     init(node: Node) {
         self.x = node.x
         self.y = node.y
         self.neighbors = node.neighbors
-        self.walkable = node.walkable
-        self.visited = node.visited
-        self.onPath = node.onPath
+        self.type = node.type
+        self.state = node.state
+    }
+
+    func isWalkable() -> Bool {
+        return type != .wall
     }
 
     func getDistance(from node: Node) -> Float {
@@ -58,23 +62,22 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
     }
 
     func reset() {
-        walkable = true
-        visited = false
-        onPath = false
+        type = .normal
+        state = .base
     }
 
-    func setWalkable(_ value: Bool) {
-        walkable = value
-    }
-
-    func setVisited(_ value: Bool) {
-        visited = value
-    }
-
-    func setOnPath() {
-        onPath = true
-        visited = false
-    }
+//    func setWalkable() {
+//        walkable = value
+//    }
+//
+//    func setVisited(_ value: Bool) {
+//        visited = value
+//    }
+//
+//    func setOnPath() {
+//        onPath = true
+//        visited = false
+//    }
 
     static func == (lhs: Node, rhs: Node) -> Bool {
         lhs.x == rhs.x && lhs.y == rhs.y

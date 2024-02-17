@@ -23,6 +23,12 @@ struct PanelView: View {
                 }
             }
             .pickerStyle(.segmented)
+            Picker("Speed", selection: $grid.speed) {
+                ForEach(Speed.allCases) { speed in
+                    Text(String(describing: speed).capitalized)
+                }
+            }
+            .pickerStyle(.segmented)
             .padding(12)
             HStack {
                 Button("Reset") {
@@ -33,9 +39,9 @@ struct PanelView: View {
                 .buttonStyle(.bordered)
 
                 Button("Run") {
-                        Task {
-                            await grid.run()
-                        }
+                    Task {
+                        await grid.run()
+                    }
                 }
                 .buttonStyle(.borderedProminent)
             }

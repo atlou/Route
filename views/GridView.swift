@@ -18,32 +18,33 @@ struct NodeView: View {
             .frame(width: size, height: size)
             .overlay {
                 ZStack {
-                    if node == grid.startNode {
-                        RoundedRectangle(cornerRadius: 0)
-                            .fill(.blue.opacity(0.8))
-                            .padding(0)
-                            .transition(.scale.combined(with: .opacity))
-                    } else if node == grid.endNode {
-                        RoundedRectangle(cornerRadius: 0)
-                            .fill(.green.opacity(0.8))
-                            .padding(0)
-                            .transition(.scale.combined(with: .opacity))
-                    } else if !node.walkable {
-                        RoundedRectangle(cornerRadius: 0)
+                    switch node.type {
+                    case .normal:
+                        switch node.state {
+                        case .base:
+                            Rectangle()
+                                .fill(.clear)
+                        case .visited:
+                            Rectangle()
+                                .fill(.yellow.opacity(0.2))
+                                .transition(.scale.combined(with: .opacity))
+                        case .path:
+                            Rectangle()
+                                .fill(.yellow)
+                                .transition(.opacity)
+                        }
+                    case .wall:
+                        Rectangle()
                             .fill(.gray.opacity(0.8))
-                            .padding(0)
-                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
-                    } else if node.visited {
-                        RoundedRectangle(cornerRadius: 0)
-                            .fill(.yellow.opacity(0.2))
-                            .padding(0)
-                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
-                            .animation(.default, value: node.visited)
-                    } else if node.onPath {
-                        RoundedRectangle(cornerRadius: 0)
-                            .fill(.yellow.opacity(1))
-                            .padding(0)
-                            .transition(.asymmetric(insertion: .scale.combined(with: .opacity), removal: .scale.combined(with: .opacity)))
+                            .transition(.scale.combined(with: .opacity))
+                    case .start:
+                        Rectangle()
+                            .fill(.blue)
+                            .transition(.scale.combined(with: .opacity))
+                    case .target:
+                        Rectangle()
+                            .fill(.green.opacity(0.8))
+                            .transition(.scale.combined(with: .opacity))
                     }
                 }
             }
@@ -60,6 +61,7 @@ struct GridView: View {
                 HStack(spacing: 0) {
                     ForEach(0..<grid.width, id: \.self) { x in
                         let node: Node = grid.getNode(x: x, y: y)!
+                        NodeView(node: node, size: size)
                     }
                 }
             }
@@ -69,20 +71,7 @@ struct GridView: View {
                 .onChanged { drag in
                     let x = Int(drag.location.x / size)
                     let y = Int(drag.location.y / size)
-                    switch grid.drawingMode {
-                    case .start:
-                        grid.setStartNode(x: x, y: y)
-                    case .end:
-                        grid.setEndNode(x: x, y: y)
-                    case .obstacle:
-//                        withAnimation(.bouncy.speed(1.5)) {
-                        grid.createObstacle(x: x, y: y)
-//                        }
-                    case .erase:
-//                        withAnimation(.default.speed(1.5)) {
-                        grid.removeObstacle(x: x, y: y)
-//                        }
-                    }
+                    grid.draw(x: x, y: y)
                 }
         )
         .background(.gray.opacity(0.2))
