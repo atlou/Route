@@ -18,7 +18,13 @@ struct GridView: View {
                 HStack(spacing: 0) {
                     ForEach(0..<grid.width, id: \.self) { x in
                         let node: Node = grid.getNode(x: x, y: y)!
-                        NodeView(node: node, size: size)
+                        RoundedRectangle(cornerRadius: 0)
+                            .fill(.white)
+                            .padding(1)
+                            .frame(width: size, height: size)
+                            .overlay {
+                                NodeView(node: node)
+                            }
                     }
                 }
             }
