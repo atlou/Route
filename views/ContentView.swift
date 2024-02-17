@@ -32,3 +32,7 @@ struct ContentView: View {
         }
     }
 }
+
+#Preview {
+    ContentView(grid: Grid.shared)
+}
