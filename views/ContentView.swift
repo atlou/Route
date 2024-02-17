@@ -1,14 +1,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var grid = Grid.shared
+    @StateObject var controller = Controller.shared
 
     var body: some View {
         ZStack {
             Color.gray.opacity(0.2)
                 .ignoresSafeArea()
             HStack(spacing: 20) {
-                PanelView(grid: grid)
+                PanelView(controller: controller)
                     .frame(width: 300)
                     .frame(maxHeight: .infinity)
                     .background {
@@ -16,7 +16,7 @@ struct ContentView: View {
                             .fill(.white)
                     }
                 ZStack {
-                    GridView(grid: grid, size: 30.0)
+                    GridView(controller: controller, size: 30.0)
                         .padding(-2)
                         .clipShape(.rect(cornerRadius: 20))
                         .background {
@@ -34,5 +34,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(grid: Grid.shared)
+    ContentView()
 }

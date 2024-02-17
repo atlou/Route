@@ -10,7 +10,9 @@ import Foundation
 class AStar {
     var map: [Node: AStarNode] = [:]
     
-    init(nodes: [Node]) {
+    static let shared = AStar(nodes: Grid.shared.nodes)
+    
+    private init(nodes: [Node]) {
         for node in nodes {
             let astarNode = AStarNode(node: node)
             self.map[node] = astarNode
@@ -45,13 +47,14 @@ class AStar {
             processed.insert(curr)
             
             do {
-                try await Task.sleep(nanoseconds: UInt64(Grid.shared.speed.ns))
+                try await Task.sleep(nanoseconds: UInt64(Controller.shared.speed.ns))
             } catch {
                 print("sleep error")
             }
             
+            let visited = curr.node
             DispatchQueue.main.async {
-                Grid.shared.visit(node: curr.node)
+                Grid.shared.setVisited(node: visited)
             }
             
             if curr == target {
@@ -82,7 +85,6 @@ class AStar {
                 
                 if !inSearch {
                     neighbor.setH(value: neighbor.node.getDistance(from: target.node))
-                    print("added neighbor \(neighbor.node)")
                     toSearch.insert(neighbor)
                 }
             }

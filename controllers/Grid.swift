@@ -46,22 +46,14 @@ enum Speed: Double, CaseIterable, Identifiable {
 }
 
 class Grid: ObservableObject {
-    @Published var drawingMode: DrawingMode
-    @Published var algo: PathfindingAlgo
     @Published var nodes: [Node]
-    @Published var startNode: Node?
-    @Published var endNode: Node?
-    @Published var speed: Speed
-    private(set) var isRunning: Bool
-    private(set) var isPathDisplayed: Bool
-    private let aStar: AStar
+    @Published var startPos: (x: Int, y: Int)?
+    @Published var targetPos: (x: Int, y: Int)?
     
     let width: Int
     let height: Int
     
     static let shared = Grid(width: 26, height: 26)
-    
-    let PATH_DRAWING_SPEED = 0.01
     
     private init(width: Int, height: Int) {
         // initialize nodes
@@ -74,12 +66,6 @@ class Grid: ObservableObject {
         self.nodes = nodes
         self.width = width
         self.height = height
-        self.drawingMode = .start
-        self.isRunning = false
-        self.algo = .astar
-        self.aStar = AStar(nodes: nodes)
-        self.isPathDisplayed = false
-        self.speed = .medium
         initializeNeighbors()
     }
     
@@ -100,57 +86,14 @@ class Grid: ObservableObject {
         }
     }
     
-    func run() {
-        if isRunning { return }
-        if startNode == nil || endNode == nil { return }
-        
-        isRunning = true
-        clearPath()
-        Task {
-            await findPath()
-        }
-    }
-    
-    func findPath() async {
-        switch algo {
-        case .astar:
-            let path = await aStar.findPath(start: startNode!, target: endNode!) ?? []
-            await MainActor.run {
-                displayPath(path: path) {
-                    self.isRunning = false
-                    self.isPathDisplayed = true
-                }
-            }
-        }
-    }
-
-    func visit(node: Node) {
-        withAnimation(.spring.speed(1.5)) {
-            node.state = .visited
-        }
-    }
-    
-    func displayPath(path: [Node], completion: @escaping () -> Void) {
-        var queue = path
-        _ = Timer.scheduledTimer(withTimeInterval: PATH_DRAWING_SPEED, repeats: true) { timer in
-            guard let node = queue.popLast() else {
-                timer.invalidate()
-                DispatchQueue.main.async { completion() }
-                return
-            }
-            withAnimation(.default.speed(1.5)) {
-                node.state = .path
-            }
-        }
-    }
-    
     func clearPath() {
-        withAnimation(.default.speed(1.5)) {
-            for node in nodes {
-                node.state = .base
-            }
+        for node in nodes {
+            node.state = .base
         }
-        isPathDisplayed = false
+    }
+    
+    func isReady() -> Bool {
+        return startPos != nil && targetPos != nil
     }
 
     func getNode(x: Int, y: Int) -> Node? {
@@ -160,62 +103,67 @@ class Grid: ObservableObject {
         return nodes[y * width + x]
     }
     
-    func clear() {
-        if isRunning { return }
-        for node in nodes {
-            node.reset()
+    func getStart() -> Node? {
+        guard let pos = startPos else {
+            return nil
         }
-        startNode = nil
-        endNode = nil
+        return getNode(x: pos.x, y: pos.y)
     }
     
-    func draw(x: Int, y: Int) {
-        if isPathDisplayed { clearPath() }
-        switch drawingMode {
-        case .start:
-            setStartNode(x: x, y: y)
-        case .target:
-            setEndNode(x: x, y: y)
-        case .wall:
-            createObstacle(x: x, y: y)
-        case .erase:
-            removeObstacle(x: x, y: y)
-        }
-    }
-    
-    func setStartNode(x: Int, y: Int) {
-        guard let n = getNode(x: x, y: y) else {
+    func setStart(x: Int, y: Int) {
+        guard let new = getNode(x: x, y: y) else {
             return
         }
-        startNode?.type = .normal
-        n.type = .start
-        startNode = n
+        if let old = getStart() {
+            old.type = .normal
+        }
+        new.type = .start
+        startPos = (x, y)
     }
     
-    func setEndNode(x: Int, y: Int) {
-        guard let n = getNode(x: x, y: y) else {
-            return
+    func getTarget() -> Node? {
+        guard let pos = targetPos else {
+            return nil
         }
-        endNode?.type = .normal
-        n.type = .target
-        endNode = n
+        return getNode(x: pos.x, y: pos.y)
     }
     
-    func createObstacle(x: Int, y: Int) {
-        guard let n = getNode(x: x, y: y) else {
+    func setTarget(x: Int, y: Int) {
+        guard let new = getNode(x: x, y: y) else {
             return
         }
-        if n != startNode && n != endNode {
+        if let old = getTarget() {
+            old.type = .normal
+        }
+        new.type = .target
+        targetPos = (x, y)
+    }
+    
+    func setWall(x: Int, y: Int) {
+        if let n = getNode(x: x, y: y), n.type == .normal {
             n.type = .wall
         }
     }
     
-    func removeObstacle(x: Int, y: Int) {
-        guard let n = getNode(x: x, y: y) else {
-            return
-        }
-        if n != startNode && n != endNode {
+    func setNormal(x: Int, y: Int) {
+        if let n = getNode(x: x, y: y) {
+            if n.type == .start { startPos = nil }
+            if n.type == .target { targetPos = nil }
             n.type = .normal
         }
+    }
+    
+    func setVisited(node: Node) {
+        if node.type == .normal {
+            node.state = .visited
+        }
+    }
+    
+    func clearGrid() {
+        for node in nodes {
+            node.reset()
+        }
+        startPos = nil
+        targetPos = nil
     }
 }

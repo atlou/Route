@@ -24,11 +24,6 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
     let x: Int
     let y: Int
     private(set) var neighbors: Set<Node>
-//    @Published var walkable: Bool
-//    @Published var visited: Bool
-//    @Published var onPath: Bool
-//    @Published var start: Bool
-//    @Published var target: Bool
 
     @Published var type: NodeType
     @Published var state: NodeState
@@ -65,19 +60,6 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
         type = .normal
         state = .base
     }
-
-//    func setWalkable() {
-//        walkable = value
-//    }
-//
-//    func setVisited(_ value: Bool) {
-//        visited = value
-//    }
-//
-//    func setOnPath() {
-//        onPath = true
-//        visited = false
-//    }
 
     static func == (lhs: Node, rhs: Node) -> Bool {
         lhs.x == rhs.x && lhs.y == rhs.y
