@@ -12,16 +12,17 @@ struct DescriptionView: View {
     var body: some View {
         ScrollView {
             Text(text == "" ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." : text)
-                .fontDesign(.monospaced)
+                .fontDesign(.rounded)
                 .foregroundStyle(.white)
                 .padding(14)
-                .font(.caption)
+//                .font(.subheadline)
                 .frame(maxWidth: .infinity)
         }
         .background {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(.background))
         }
+        .frame(maxHeight: 360)
         .padding(.horizontal, 20)
     }
 }
@@ -32,7 +33,7 @@ struct AlgorithmPicker: View {
         Picker("Pathfinding", selection: $selection) {
             ForEach(PathfindingAlgo.allCases) { algo in
                 Text(String(describing: algo).capitalized)
-                    .fontDesign(.monospaced)
+                    .fontDesign(.rounded)
                     .foregroundStyle(.white)
                     .fontWeight(.regular)
                     .font(.body)
@@ -115,7 +116,7 @@ struct PanelView: View {
                 }
                 .buttonStyle(.borderedProminent)
             }
-            .fontDesign(.monospaced)
+            .fontDesign(.rounded)
             .fontWeight(.medium)
             .padding(.horizontal, 20)
             .padding(.bottom, 20)

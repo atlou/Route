@@ -115,14 +115,11 @@ class Grid: ObservableObject {
     }
     
     func setStart(x: Int, y: Int) {
-        guard let new = getNode(x: x, y: y) else {
-            return
+        if let new = getNode(x: x, y: y), new.type == .normal {
+            getStart()?.type = .normal
+            new.type = .start
+            startPos = (x, y)
         }
-        if let old = getStart() {
-            old.type = .normal
-        }
-        new.type = .start
-        startPos = (x, y)
     }
     
     func getTarget() -> Node? {
@@ -133,14 +130,11 @@ class Grid: ObservableObject {
     }
     
     func setTarget(x: Int, y: Int) {
-        guard let new = getNode(x: x, y: y) else {
-            return
+        if let new = getNode(x: x, y: y), new.type == .normal {
+            getTarget()?.type = .normal
+            new.type = .target
+            targetPos = (x, y)
         }
-        if let old = getTarget() {
-            old.type = .normal
-        }
-        new.type = .target
-        targetPos = (x, y)
     }
     
     func setWall(x: Int, y: Int) {
@@ -150,9 +144,7 @@ class Grid: ObservableObject {
     }
     
     func setNormal(x: Int, y: Int) {
-        if let n = getNode(x: x, y: y) {
-            if n.type == .start { startPos = nil }
-            if n.type == .target { targetPos = nil }
+        if let n = getNode(x: x, y: y), n.type == .wall {
             n.type = .normal
         }
     }
