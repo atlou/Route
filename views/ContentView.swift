@@ -15,13 +15,9 @@ struct ContentView: View {
                         RoundedRectangle(cornerRadius: 24)
                             .fill(Color(.panel))
                     }
-//                GeometryReader { proxy in
-                    GridView(controller: controller, size: 30.0)
-                        .padding(-1)
-                        .clipShape(.rect(cornerRadius: 24))
-//                }
-                
-                
+                GridView(controller: controller, size: 30.0)
+                    .padding(-1)
+                    .clipShape(.rect(cornerRadius: 24))
             }
             .fixedSize(horizontal: false, vertical: true)
         }

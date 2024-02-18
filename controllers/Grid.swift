@@ -32,8 +32,8 @@ enum DrawingMode: CaseIterable, Identifiable {
 }
 
 enum Speed: Double, CaseIterable, Identifiable {
-    case fast = 0.005
-    case medium = 0.01
+    case fast = 0.01
+    case medium = 0.015
     case slow = 0.05
     
     var ms: Double {

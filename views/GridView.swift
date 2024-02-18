@@ -35,7 +35,7 @@ struct GridView: View {
                     }
                     isDragging = true
                 }
-
+                
                 let x = Int(drag.location.x / size)
                 let y = Int(drag.location.y / size)
                 controller.draw(x: x, y: y)

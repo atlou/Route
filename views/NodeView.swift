@@ -37,7 +37,7 @@ struct NodeView: View {
             .onChange(of: node.state) { _, new in
                 if node.type == .normal {
                     if new == .base {
-                        hide(anim: false)
+                        hide(anim: true)
                     }
                     if new == .visited {
                         setVisited()
@@ -48,7 +48,6 @@ struct NodeView: View {
                 }
             }
             .onChange(of: node.type) { old, new in
-                color = nodeColor()
                 if old == .normal {
                     if new != .wall {
                         opacity = 1
@@ -57,7 +56,8 @@ struct NodeView: View {
                     show(anim: true)
                 }
                 if new == .normal {
-                    hide(anim: false)
+                    print("hiding")
+                    hide(anim: old == .wall)
                 }
             }
             .onAppear {
@@ -79,7 +79,7 @@ struct NodeView: View {
         }
         withAnimation(.bouncy) {
             overlayScale = 1
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
                 opacity = 1
                 self.color = Color(.gridPath)
                 overlayOpacity = 0
@@ -102,14 +102,8 @@ struct NodeView: View {
     }
 
     private func show(anim: Bool) {
-        if anim {
-            withAnimation(.bouncy.speed(1.5)) {
-                scale = 1
-            }
-            withAnimation(.default.speed(3)) {
-                opacity = 1
-            }
-        } else {
+        color = nodeColor()
+        withAnimation(.bouncy.speed(2)) {
             scale = 1
             opacity = 1
         }
@@ -117,11 +111,11 @@ struct NodeView: View {
 
     private func hide(anim: Bool) {
         if anim {
-            withAnimation(.bouncy.speed(1.5)) {
+            withAnimation(.bouncy.speed(2)) {
                 scale = 0.5
-            }
-            withAnimation(.default.speed(3)) {
                 opacity = 0
+            } completion: {
+                color = nodeColor()
             }
         } else {
             scale = 0.5
@@ -131,12 +125,7 @@ struct NodeView: View {
 
     private func nodeColor() -> Color {
         switch node.type {
-        case .normal:
-            switch node.state {
-            case .base: return .clear
-            case .path: return .yellow
-            case .visited: return .teal
-            }
+        case .normal: return .clear
         case .wall: return Color(.gridWall)
         case .start: return Color(.gridPoint)
         case .target: return Color(.gridPoint)

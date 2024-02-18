@@ -107,15 +107,17 @@ struct PanelView: View {
                 .tint(Color(.background))
 
                 Button {
-                    withAnimation {
-                        controller.run()
-                    }
+                    controller.run()
                 } label: {
                     Text("Find Path")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
             }
+//            .disabled(controller.isRunning)
+            .allowsHitTesting(!controller.isRunning)
+            .opacity(controller.isRunning ? 0.3 : 1)
+            .animation(.default, value: controller.isRunning)
             .fontDesign(.rounded)
             .fontWeight(.medium)
             .padding(.horizontal, 20)

@@ -10,8 +10,8 @@ import Foundation
 class Controller: ObservableObject {
     @Published var drawingMode: DrawingMode = .start
     @Published var algo: PathfindingAlgo = .astar
-    @Published var speed: Speed = .fast
-    private(set) var isRunning = false
+    @Published var speed: Speed = .medium
+    @Published var isRunning = false
     private(set) var isPathDisplayed = false
     
     let PATH_DRAWING_DELAY = 0.03
@@ -26,9 +26,14 @@ class Controller: ObservableObject {
         if !grid.isReady() { return }
         
         isRunning = true
+        
         grid.clearPath()
-        Task {
-            await findPath()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            // delay after clearing path for animations
+            Task {
+                await self.findPath()
+            }
         }
     }
     
@@ -38,8 +43,9 @@ class Controller: ObservableObject {
         switch algo {
         case .astar:
             let path = await AStar.shared.findPath(start: start, target: target) ?? []
-            await MainActor.run {
-                displayPath(path: path) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                // delay before showing path
+                self.displayPath(path: path) {
                     self.isRunning = false
                     self.isPathDisplayed = true
                 }
@@ -54,8 +60,8 @@ class Controller: ObservableObject {
         _ = Timer.scheduledTimer(withTimeInterval: PATH_DRAWING_DELAY, repeats: true) { timer in
             guard let node = queue.popLast() else {
                 timer.invalidate()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    // delay to let animations end
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                    // delay after showing path to let animations end
                     completion()
                 }
                 return
