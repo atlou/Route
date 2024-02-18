@@ -37,7 +37,7 @@ struct NodeView: View {
             .onChange(of: node.state) { _, new in
                 if node.type == .normal {
                     if new == .base {
-                        hide(anim: true)
+                        hide(anim: false)
                     }
                     if new == .visited {
                         setVisited()
@@ -56,7 +56,6 @@ struct NodeView: View {
                     show(anim: true)
                 }
                 if new == .normal {
-                    print("hiding")
                     hide(anim: old == .wall)
                 }
             }
@@ -120,6 +119,7 @@ struct NodeView: View {
         } else {
             scale = 0.5
             opacity = 0
+            color = nodeColor()
         }
     }
 

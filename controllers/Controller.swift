@@ -29,12 +29,12 @@ class Controller: ObservableObject {
         
         grid.clearPath()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             // delay after clearing path for animations
             Task {
                 await self.findPath()
             }
-        }
+//        }
     }
     
     func findPath() async {
