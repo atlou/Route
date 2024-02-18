@@ -60,6 +60,7 @@ class Controller: ObservableObject {
     }
     
     func draw(x: Int, y: Int) {
+        if isRunning { return }
         if isPathDisplayed { grid.clearPath() }
         switch drawingMode {
         case .start:

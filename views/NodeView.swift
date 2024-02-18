@@ -107,8 +107,8 @@ struct NodeView: View {
             opacity = 1
         }
     }
-    
-    private func hide(anim : Bool) {
+
+    private func hide(anim: Bool) {
         if anim {
             withAnimation(.bouncy.speed(1.5)) {
                 scale = 0.5
