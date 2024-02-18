@@ -18,19 +18,19 @@ struct NodeView: View {
     @State private var color = Color.clear
 
     @State private var overlayColor = Color.clear
-    @State private var overlayScale = 0.5
+    @State private var overlayScale = 0.7
     @State private var overlayOpacity = 0.0
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 6)
+        RoundedRectangle(cornerRadius: 4)
             .fill(color)
-            .padding(4)
+            .padding(3)
             .scaleEffect(scale)
             .opacity(opacity)
             .overlay {
-                RoundedRectangle(cornerRadius: 6)
+                RoundedRectangle(cornerRadius: 4)
                     .fill(overlayColor)
-                    .padding(4)
+                    .padding(3)
                     .scaleEffect(overlayScale)
                     .opacity(overlayOpacity)
             }
@@ -50,47 +50,54 @@ struct NodeView: View {
             .onChange(of: node.type) { old, new in
                 color = nodeColor()
                 if old == .normal {
-                    if new == .wall {
-                        show(anim: true)
-                    } else {
-                        show(anim: false)
+                    if new != .wall {
+                        opacity = 1
+                        scale = 0.7
                     }
+                    show(anim: true)
                 }
                 if new == .normal {
                     hide(anim: false)
                 }
             }
+            .onAppear {
+                color = nodeColor()
+                if node.type == .start || node.type == .target {
+                    show(anim: false)
+                }
+            }
     }
 
-    private func setPath(color: Color = .yellow) {
+    private func setPath() {
         // spawn overlay with new color
-        overlayColor = color
+        overlayColor = Color(.gridPath)
 
-        withAnimation(.bouncy.speed(1)) {
-            overlayScale = 1
-            scale = 0.5
-        } completion: {
-            // once the animation is done, change the color and remove overlay
-            self.color = color
-            overlayOpacity = 0
-            overlayScale = 0.5
-            scale = 1
-        }
         withAnimation(.default.speed(2)) {
             overlayOpacity = 1
+            scale = 0.5
+            opacity = 0
+        }
+        withAnimation(.bouncy) {
+            overlayScale = 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                opacity = 1
+                self.color = Color(.gridPath)
+                overlayOpacity = 0
+                overlayScale = 0.7
+                scale = 1
+            }
         }
     }
 
-    private func setVisited(color1: Color = .indigo, color2: Color = .cyan) {
-        color = color1.opacity(0.5)
-        withAnimation(.bouncy.speed(0.5)) {
+    private func setVisited() {
+        color = Color(.gridVisitedLight)
+        withAnimation(.bouncy.speed(1)) {
             scale = 1
-        }
-        withAnimation(.default.speed(1)) {
-            opacity = 1
-        }
-        withAnimation(.default.speed(0.5)) {
-            color = color2.opacity(0.5)
+            opacity = 0.3
+        } completion: {
+            withAnimation(.bouncy.speed(1)) {
+                opacity = 1
+            }
         }
     }
 
@@ -130,9 +137,9 @@ struct NodeView: View {
             case .path: return .yellow
             case .visited: return .teal
             }
-        case .wall: return .gray
-        case .start: return .blue
-        case .target: return .green
+        case .wall: return Color(.gridWall)
+        case .start: return Color(.gridPoint)
+        case .target: return Color(.gridPoint)
         }
     }
 }

@@ -44,6 +44,8 @@ class Controller: ObservableObject {
                     self.isPathDisplayed = true
                 }
             }
+        default:
+            return
         }
     }
     
@@ -52,7 +54,10 @@ class Controller: ObservableObject {
         _ = Timer.scheduledTimer(withTimeInterval: PATH_DRAWING_DELAY, repeats: true) { timer in
             guard let node = queue.popLast() else {
                 timer.invalidate()
-                DispatchQueue.main.async { completion() }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    // delay to let animations end
+                    completion()
+                }
                 return
             }
             node.state = .path

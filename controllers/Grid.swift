@@ -10,12 +10,14 @@ import SwiftUI
 
 enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
     case astar
+    case dijkstra
     
     var id: Self { self }
     
     var description: String {
         switch self {
         case .astar: return "A-star"
+        case .dijkstra: return "Dijkstra"
         }
     }
 }
@@ -53,7 +55,7 @@ class Grid: ObservableObject {
     let width: Int
     let height: Int
     
-    static let shared = Grid(width: 26, height: 26)
+    static let shared = Grid(width: 29, height: 26)
     
     private init(width: Int, height: Int) {
         // initialize nodes
@@ -67,6 +69,8 @@ class Grid: ObservableObject {
         self.width = width
         self.height = height
         initializeNeighbors()
+        setStart(x: 4, y: 13)
+        setTarget(x: 24, y: 13)
     }
     
     func initializeNeighbors() {
@@ -163,7 +167,7 @@ class Grid: ObservableObject {
         for node in nodes {
             node.reset()
         }
-        startPos = nil
-        targetPos = nil
+        setStart(x: 4, y: 13)
+        setTarget(x: 24, y: 13)
     }
 }

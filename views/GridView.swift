@@ -19,8 +19,8 @@ struct GridView: View {
                     ForEach(0..<grid.width, id: \.self) { x in
                         let node: Node = grid.getNode(x: x, y: y)!
                         RoundedRectangle(cornerRadius: 0)
-                            .fill(.white)
-                            .padding(1)
+                            .fill(Color(.gridBackground))
+                            .padding(0.5)
                             .frame(width: size, height: size)
                             .overlay {
                                 NodeView(node: node)
@@ -37,6 +37,6 @@ struct GridView: View {
                     controller.draw(x: x, y: y)
                 }
         )
-        .background(.gray.opacity(0.2))
+        .background(Color(.grid))
     }
 }

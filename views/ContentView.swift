@@ -5,28 +5,20 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            Color.gray.opacity(0.2)
+            Color(.background)
                 .ignoresSafeArea()
             HStack(spacing: 20) {
                 PanelView(controller: controller)
-                    .frame(width: 300)
+                    .frame(width: 240)
                     .frame(maxHeight: .infinity)
                     .background {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.white)
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(Color(.panel))
                     }
-                ZStack {
-                    GridView(controller: controller, size: 30.0)
-                        .padding(-2)
-                        .clipShape(.rect(cornerRadius: 20))
-                        .background {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(.white)
-                        }
-                    VStack {
-                        Spacer()
-                    }
-                }
+                GridView(controller: controller, size: 30.0)
+                    .padding(-1)
+                    .clipShape(.rect(cornerRadius: 24))
+                
             }
             .fixedSize(horizontal: false, vertical: true)
         }
