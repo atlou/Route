@@ -44,7 +44,6 @@ class MazeGeneration {
     }
     
     private func divide(x: Int, y: Int, width: Int, height: Int) {
-        print("divide")
         if width < 2 || height < 2 { return }
         
         let orientation = getOrientation(width: width, height: height)
@@ -56,19 +55,21 @@ class MazeGeneration {
         var length: Int
         
         if orientation == .horizontal {
+            if width < 5 { return }
             wallX = x
-            wallY = Int.random(in: y..<height - 1)
+            wallY = y + (1...height - 3).filter { $0 % 2 == 0 }.randomElement()!
             
-            holeX = wallX + Int.random(in: 1..<width)
+            holeX = wallX + (1...width - 2).filter { $0 % 2 == 1 }.randomElement()!
             holeY = wallY
             
             length = width
         } else {
-            wallX = Int.random(in: x..<width - 1)
+            if height < 5 { return }
+            wallX = x + (1...width - 3).filter { $0 % 2 == 0 }.randomElement()!
             wallY = y
             
             holeX = wallX
-            holeY = wallY + Int.random(in: 1..<height)
+            holeY = wallY + (1...height - 2).filter { $0 % 2 == 1 }.randomElement()!
             
             length = height
         }
@@ -76,48 +77,28 @@ class MazeGeneration {
         draw(x: wallX, y: wallY, length: length, orientation: orientation, holeX: holeX, holeY: holeY)
         
         if orientation == .horizontal {
-            divide(x: x, y: y, width: width, height: wallY - y)
-            divide(x: x, y: wallY, width: width, height: x + width - wallX)
+            divide(x: x, y: y, width: width, height: wallY - y + 1)
+            divide(x: x, y: wallY, width: width, height: height - wallY + y)
         } else {
             divide(x: x, y: y, width: wallX - x + 1, height: height)
-            divide(x: wallX, y: y, width: y + height - wallY - 1, height: height)
-        }
-    }
-    
-    private func drawHLine(x1: Int, x2: Int, y: Int) {
-        if x1 > x2 {
-            print("x1 > x2")
-            return
-        }
-        for i in x1...x2 {
-            grid.setWall(x: i, y: y)
+            divide(x: wallX, y: y, width: width - wallX + x, height: height)
         }
     }
     
     private func draw(x: Int, y: Int, length: Int, orientation: Orientation, holeX: Int, holeY: Int) {
         print("hole: \(holeX), \(holeY)")
         if orientation == .horizontal {
-            for i in x...x + length {
+            for i in x..<x + length {
                 if i != holeX || y != holeY {
                     grid.setWall(x: i, y: y)
                 }
             }
         } else {
-            for i in y...y + length {
+            for i in y..<y + length {
                 if x != holeX || i != holeY {
                     grid.setWall(x: x, y: i)
                 }
             }
-        }
-    }
-    
-    private func drawVLine(y1: Int, y2: Int, x: Int) {
-        if y1 > y2 {
-            print("y1 > y2")
-            return
-        }
-        for i in y1...y2 {
-            grid.setWall(x: x, y: i)
         }
     }
 }

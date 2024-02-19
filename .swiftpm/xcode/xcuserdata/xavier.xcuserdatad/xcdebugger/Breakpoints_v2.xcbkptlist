@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "46"
             endingLineNumber = "46"
-            landmarkName = "divide(x:y:width:height:orientation:)"
+            landmarkName = "divide(x:y:width:height:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -16,6 +16,7 @@ class Controller: ObservableObject {
     
     let PATH_DRAWING_DELAY = 0.03
     let grid = Grid.shared
+    let maze = MazeGeneration.shared
     
     static let shared = Controller()
     
@@ -35,6 +36,11 @@ class Controller: ObservableObject {
                 await self.findPath()
             }
 //        }
+    }
+    
+    func generateMaze() {
+        clear()
+        maze.generate()
     }
     
     func findPath() async {
