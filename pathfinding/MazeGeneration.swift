@@ -24,7 +24,7 @@ class MazeGeneration {
         // draw sides
         drawSquare()
         
-        divide(x: 0, y: 0, width: grid.width - 1, height: grid.height - 1, orientation: Orientation.allCases.randomElement()!)
+        divide(x: 0, y: 0, width: grid.width - 1, height: grid.height - 1)
     }
     
     private func drawSquare() {
@@ -43,34 +43,44 @@ class MazeGeneration {
         return Orientation.allCases.randomElement()!
     }
     
-    private func divide(x: Int, y: Int, width: Int, height: Int, orientation: Orientation) {
+    private func divide(x: Int, y: Int, width: Int, height: Int) {
         print("divide")
-        if width < space * 2 || height < space * 2 { return }
+        if width < 2 || height < 2 { return }
+        
+        let orientation = getOrientation(width: width, height: height)
+        
+        var wallX: Int
+        var wallY: Int
+        var holeX: Int
+        var holeY: Int
+        var length: Int
         
         if orientation == .horizontal {
-            let y2 = Int.random(in: y + space + 1...y + height - space - 1)
-            let x2 = x + width - 1
-            let hole = Int.random(in: x + 1 + (space / 2)...x2 - 1 - (space / 2))
+            wallX = x
+            wallY = Int.random(in: y..<height - 1)
             
-            // drawHLine
-            drawHLine(x1: x, x2: hole - 1 - (space / 2), y: y2)
-            drawHLine(x1: hole + 1 + (space / 2), x2: x2, y: y2)
+            holeX = wallX + Int.random(in: 1..<width)
+            holeY = wallY
             
-            // recursion
-            divide(x: x, y: y, width: width, height: y2 - y, orientation: getOrientation(width: width, height: y2 - y))
-            divide(x: x, y: y2, width: width, height: height - y2, orientation: getOrientation(width: width, height: height - y2))
+            length = width
         } else {
-            let x2 = Int.random(in: x + space + 1...x + width - space - 1)
-            let y2 = y + width - 1
-            let hole = Int.random(in: y + 1 + (space / 2)...y2 - 1 - (space / 2))
+            wallX = Int.random(in: x..<width - 1)
+            wallY = y
             
-            // drawVLine
-            drawVLine(y1: y, y2: hole - 1 - (space / 2), x: x2)
-            drawVLine(y1: hole + 1 + (space / 2), y2: y2, x: x2)
+            holeX = wallX
+            holeY = wallY + Int.random(in: 1..<height)
             
-            // recursion
-            divide(x: x, y: y, width: x2 - x, height: height, orientation: getOrientation(width: x2 - x, height: height))
-            divide(x: x2, y: y, width: width - x2, height: height, orientation: getOrientation(width: width - x2, height: height))
+            length = height
+        }
+        
+        draw(x: wallX, y: wallY, length: length, orientation: orientation, holeX: holeX, holeY: holeY)
+        
+        if orientation == .horizontal {
+            divide(x: x, y: y, width: width, height: wallY - y)
+            divide(x: x, y: wallY, width: width, height: x + width - wallX)
+        } else {
+            divide(x: x, y: y, width: wallX - x + 1, height: height)
+            divide(x: wallX, y: y, width: y + height - wallY - 1, height: height)
         }
     }
     
@@ -81,6 +91,23 @@ class MazeGeneration {
         }
         for i in x1...x2 {
             grid.setWall(x: i, y: y)
+        }
+    }
+    
+    private func draw(x: Int, y: Int, length: Int, orientation: Orientation, holeX: Int, holeY: Int) {
+        print("hole: \(holeX), \(holeY)")
+        if orientation == .horizontal {
+            for i in x...x + length {
+                if i != holeX || y != holeY {
+                    grid.setWall(x: i, y: y)
+                }
+            }
+        } else {
+            for i in y...y + length {
+                if x != holeX || i != holeY {
+                    grid.setWall(x: x, y: i)
+                }
+            }
         }
     }
     
