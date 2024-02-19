@@ -3,4 +3,54 @@
    uuid = "5F4F3B0B-58C1-44FD-B0C7-CA75A79D69A2"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5DCDF94-9E30-4DD2-B935-38C895FA573F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/MazeGeneration.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "MazeGeneration"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D5DCDF94-9E30-4DD2-B935-38C895FA573F - 2bab38dafb4056fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pathfinding.MazeGeneration.generate() -&gt; ()"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/MazeGeneration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "D5DCDF94-9E30-4DD2-B935-38C895FA573F - 2bab38dafb40573d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pathfinding.MazeGeneration.generate() -&gt; ()"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/MazeGeneration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

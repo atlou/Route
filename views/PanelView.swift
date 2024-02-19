@@ -84,7 +84,8 @@ struct PanelView: View {
             VStack(spacing: 10) {
                 Button {
                     withAnimation(.default.speed(2)) {
-                        controller.clear()
+//                        controller.clear()
+                        MazeGeneration.shared.generate()
                     }
                 } label: {
                     Text("Generate Maze")
