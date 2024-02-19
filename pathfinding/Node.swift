@@ -57,7 +57,7 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
     }
 
     func reset() {
-        type = .normal
+        if type == .wall { type = .normal }
         state = .base
     }
 

@@ -2,24 +2,23 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
+    @State private var showLaunch = true
 
     var body: some View {
         ZStack {
-            Color(.background)
-                .ignoresSafeArea()
-            HStack(spacing: 20) {
-                PanelView(controller: controller)
-                    .frame(width: 240)
-                    .frame(maxHeight: .infinity)
-                    .background {
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(Color(.panel))
-                    }
-                GridView(controller: controller, size: 30.0)
-                    .padding(-1)
-                    .clipShape(.rect(cornerRadius: 24))
+            MainView(controller: controller)
+
+            Group {
+                Color(.black)
+                Color(.panel)
             }
-            .fixedSize(horizontal: false, vertical: true)
+            .ignoresSafeArea()
+            .opacity(showLaunch ? 0.4 : 0)
+            .animation(.default, value: showLaunch)
+        }
+        .sheet(isPresented: $showLaunch) {
+            LaunchView(isShown: $showLaunch)
+                .interactiveDismissDisabled()
         }
     }
 }

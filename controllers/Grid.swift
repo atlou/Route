@@ -159,7 +159,7 @@ class Grid: ObservableObject {
         for node in nodes {
             node.reset()
         }
-        setStart(x: 3, y: height / 2 + 1 - height / 2 % 2)
-        setTarget(x: width - 4, y: height / 2 + 1 - height / 2 % 2)
+//        setStart(x: 3, y: height / 2 + 1 - height / 2 % 2)
+//        setTarget(x: width - 4, y: height / 2 + 1 - height / 2 % 2)
     }
 }

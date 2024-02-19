@@ -66,20 +66,6 @@ struct PanelView: View {
 
             DescriptionView(text: "")
 
-//            Picker("Drawing Mode", selection: $controller.drawingMode) {
-//                ForEach(DrawingMode.allCases) { mode in
-//                    Text(String(describing: mode).capitalized)
-//                }
-//            }
-//            .pickerStyle(.segmented)
-//            Picker("Speed", selection: $controller.speed) {
-//                ForEach(Speed.allCases) { speed in
-//                    Text(String(describing: speed).capitalized)
-//                }
-//            }
-//            .pickerStyle(.segmented)
-//            .padding(12)
-
             Spacer()
             VStack(spacing: 10) {
                 Button {
@@ -113,6 +99,7 @@ struct PanelView: View {
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
+                .tint(Color(.grid))
             }
 //            .disabled(controller.isRunning)
             .allowsHitTesting(!controller.isRunning)
