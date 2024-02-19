@@ -24,14 +24,18 @@ class MazeGeneration {
         // draw sides
         drawSquare()
         
-        divide(x: 0, y: 0, width: grid.width - 1, height: grid.height - 1)
+        divide(x: 0, y: 0, width: grid.width, height: grid.height)
     }
     
     private func drawSquare() {
-        drawHLine(x1: 0, x2: grid.width, y: 0)
-        drawHLine(x1: 0, x2: grid.width - 1, y: grid.height - 1)
-        drawVLine(y1: 0, y2: grid.height - 1, x: 0)
-        drawVLine(y1: 0, y2: grid.height - 1, x: grid.width - 1)
+        for x in 0...grid.width - 1 {
+            grid.setWall(x: x, y: 0)
+            grid.setWall(x: x, y: grid.height - 1)
+        }
+        for y in 0...grid.height - 1 {
+            grid.setWall(x: 0, y: y)
+            grid.setWall(x: grid.width - 1, y: y)
+        }
     }
     
     private func getOrientation(width: Int, height: Int) -> Orientation {

@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "36757E09-F67D-4951-BCDA-A9C096922BF6"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pathfinding/MazeGeneration.swift"
@@ -24,16 +24,48 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BF175742-D5D8-481C-9B29-5628082D60D7"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "pathfinding/MazeGeneration.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "divide(x:y:width:height:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BF175742-D5D8-481C-9B29-5628082D60D7 - 2c150db300bb07af"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pathfinding.MazeGeneration.divide(x: Swift.Int, y: Swift.Int, width: Swift.Int, height: Swift.Int, orientation: Pathfinding.Orientation) -&gt; ()"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/MazeGeneration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "272">
+               </Location>
+               <Location
+                  uuid = "BF175742-D5D8-481C-9B29-5628082D60D7 - cfbb2aca9e08bad8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pathfinding.MazeGeneration.divide(x: Swift.Int, y: Swift.Int, width: Swift.Int, height: Swift.Int) -&gt; ()"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/MazeGeneration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "200">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
