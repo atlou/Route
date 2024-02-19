@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var controller: Controller
+    @State private var gridSize: CGSize = .zero
 
     var body: some View {
         ZStack {
@@ -22,11 +23,26 @@ struct MainView: View {
                         RoundedRectangle(cornerRadius: 24)
                             .fill(Color(.panel))
                     }
-                GridView(controller: controller, size: 30.0)
+//                GridView(controller: controller, size: 30.0)
+                GridView(controller: controller, size: $gridSize)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay {
+                        GeometryReader { proxy in
+//                            Text("\(gridSize.width) \(gridSize.height)")
+                            Color.clear
+                                .onAppear {
+                                    gridSize = proxy.frame(in: .global).size
+                                }
+                                .onChange(of: proxy.frame(in: .global)) {
+                                    gridSize = proxy.frame(in: .global).size
+                                }
+                        }
+                    }
                     .padding(-1)
                     .clipShape(.rect(cornerRadius: 24))
             }
             .fixedSize(horizontal: false, vertical: true)
+            .padding(30)
         }
     }
 }

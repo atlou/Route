@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
-    @State private var showLaunch = true
+    @State private var showLaunch = false
 
     var body: some View {
         ZStack {
