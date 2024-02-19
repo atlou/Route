@@ -12,6 +12,10 @@ enum Orientation: CaseIterable {
     case horizontal
 }
 
+/**
+ This recursive division maze generation algorithm is based on Jamis Buck's algorithm from [The Buckblog](https:weblog.jamisbuck.org/2011/1/12/maze-generation-recursive-division-algorithm)
+ */
+
 class MazeGeneration {
     let grid = Grid.shared
     let space = 1
@@ -91,6 +95,7 @@ class MazeGeneration {
     
     private func draw(x: Int, y: Int, length: Int, orientation: Orientation, holeX: Int, holeY: Int) {
         print("hole: \(holeX), \(holeY)")
+        
         if orientation == .horizontal {
             for i in x..<x + length {
                 if i != holeX || y != holeY {

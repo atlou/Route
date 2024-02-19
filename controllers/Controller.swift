@@ -30,16 +30,15 @@ class Controller: ObservableObject {
         
         grid.clearPath()
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // delay after clearing path for animations
-            Task {
-                await self.findPath()
-            }
-//        }
+        Task {
+            await self.findPath()
+        }
     }
     
     func generateMaze() {
         clear()
+        
+        // small delay to make sure the clearing animations are done
         maze.generate()
     }
     
