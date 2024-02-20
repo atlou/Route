@@ -32,9 +32,9 @@ struct LaunchView: View {
                     Bullet(text: "Draw **walls** on the grid to create obstacles", icon: "hand.draw.fill", color: Color(.gridWall))
                     Bullet(text: "Generate a **random maze** to try more complex paths", icon: "sparkles", color: Color(.gridWall))
 
-                    Bullet(text: "Watch the algorithm do its thing!", icon: "popcorn.fill", color: Color(.gridWall))
+//                    Bullet(text: "Watch the algorithm do its thing!", icon: "popcorn.fill", color: Color(.gridWall))
                 }
-                .padding(.bottom, 30)
+                .padding(.bottom, 60)
 
                 HStack {
                     Spacer()
