@@ -57,7 +57,9 @@ class AStar {
                 Grid.shared.setVisited(node: visited)
             }
             
+            // path found
             if curr == target {
+                // backtrack to start node
                 var currentPathTile = target
                 var path: [Node] = []
                 

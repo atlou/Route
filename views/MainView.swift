@@ -12,9 +12,6 @@ struct MainView: View {
     @State private var gridSize: CGSize = .zero
 
     var body: some View {
-        ZStack {
-            Color(.background)
-                .ignoresSafeArea()
             HStack(spacing: 20) {
                 PanelView(controller: controller)
                     .frame(width: 240)
@@ -43,7 +40,6 @@ struct MainView: View {
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding(30)
-        }
     }
 }
 
