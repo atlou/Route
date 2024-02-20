@@ -17,7 +17,7 @@ struct GridView: View {
 //        return (Int(location.x / size), Int(location.y / size))
         return (Int(location.x / getCellSize()), Int(location.y / getCellSize()))
     }
-    
+
     func getCellSize() -> Double {
         return size.width / Double(Grid.shared.width)
     }

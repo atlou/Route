@@ -90,8 +90,6 @@ class MazeGeneration {
     }
     
     private func draw(x: Int, y: Int, length: Int, orientation: Orientation, holeX: Int, holeY: Int) {
-        print("hole: \(holeX), \(holeY)")
-        
         if orientation == .horizontal {
             for i in x..<x + length {
                 if i != holeX || y != holeY {

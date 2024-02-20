@@ -20,7 +20,8 @@ extension View {
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
-    @State private var showLaunch = false // TODO: True to show launch screen
+    @State private var showLaunch = true // TODO: True to show launch screen
+//    @State private var landscape = false
     @State private var orientation: UIDeviceOrientation = .unknown
 
     func isLandscape() -> Bool {
@@ -33,13 +34,12 @@ struct ContentView: View {
                 .ignoresSafeArea()
 
             // TODO: Uncomment to enable rotation screen
-//            if isLandscape() {
-//                MainView(controller: self.controller)
-//            } else {
-//                RotateView()
-//            }
 
-            MainView(controller: self.controller)
+            if isLandscape() {
+                MainView(controller: self.controller)
+            } else {
+                RotateView()
+            }
 
             Group {
                 Color(.black)
@@ -52,6 +52,7 @@ struct ContentView: View {
         .sheet(isPresented: $showLaunch) {
             LaunchView(isShown: self.$showLaunch)
                 .interactiveDismissDisabled()
+                .background(Color(.panel))
         }
         .onRotate { o in
             orientation = o

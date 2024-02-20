@@ -10,20 +10,39 @@ import SwiftUI
 struct DescriptionView: View {
     let text: LocalizedStringKey
     var body: some View {
-        ScrollView {
-            Text(text == "" ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." : text)
-                .fontDesign(.rounded)
-                .foregroundStyle(.white)
-                .padding(14)
-//                .font(.subheadline)
-                .frame(maxWidth: .infinity)
+        ScrollViewReader { scroll in
+            ScrollView {
+                Text(text == "" ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." : text)
+                    .fontDesign(.rounded)
+                    .foregroundStyle(.white)
+                    .padding(14)
+                    .padding(.bottom, 30)
+                    //                .font(.subheadline)
+                    .frame(maxWidth: .infinity)
+                    .id(0)
+            }
+            .scrollIndicators(.visible)
+            .mask {
+                VStack(spacing: 0) {
+                    Color.black
+                    LinearGradient(gradient:
+                        Gradient(
+                            colors: [Color.clear, Color.black]),
+                        startPoint: .bottom, endPoint: .top)
+                        .frame(height: 50)
+                }
+            }
+            .background {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(.background))
+            }
+            .padding(.horizontal, 20)
+            .onChange(of: text) {
+                withAnimation {
+                    scroll.scrollTo(0, anchor: .top)
+                }
+            }
         }
-        .background {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color(.background))
-        }
-        .frame(maxHeight: 360)
-        .padding(.horizontal, 20)
     }
 }
 
@@ -65,6 +84,7 @@ struct PanelView: View {
             AlgorithmPicker(selection: $controller.algo)
 
             DescriptionView(text: controller.algo.detailedDescription)
+                .animation(.default.speed(2), value: controller.algo)
 
             Spacer()
             VStack(spacing: 10) {

@@ -14,8 +14,8 @@ struct RotateView: View {
                 .font(.system(size: 70))
                 .foregroundStyle(.white)
                 .symbolEffect(.pulse.byLayer, isActive: true)
-            Text("Please rotate your device.")
-                .font(.title)
+            Text("Please rotate your device into **landscape** mode.")
+                .font(.title3)
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
         }

@@ -80,14 +80,11 @@ class Dijkstra {
                 $0.isWalkable() && unexplored.contains(self.map[$0]!)
             }
             
-            print("neighbors: \(neighbors.count)")
-            
             for neighbor in neighbors {
                 let neighbor = self.map[neighbor]!
                 let dist = curr.distance + Int(curr.node.getDistance(from: neighbor.node))
                 
                 if dist < neighbor.distance {
-                    print("found neighbor")
                     neighbor.setDistance(distance: dist)
                     neighbor.setPrev(node: curr)
                 }

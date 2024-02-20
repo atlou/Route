@@ -75,8 +75,6 @@ class Greedy {
                 $0.isWalkable() && !explored.contains(self.map[$0]!)
             }
             
-            print("neighbors: \(neighbors.count)")
-            
             for neighbor in neighbors {
                 let neighbor = self.map[neighbor]!
                 neighbor.setH(target: target.node)
