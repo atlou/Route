@@ -179,5 +179,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A892F2C-5D9E-4090-A2A3-4E0496BBBB62"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Greedy.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8A892F2C-5D9E-4090-A2A3-4E0496BBBB62 - d629fdc92d8d3262"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Pathfinding.Greedy.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Greedy.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "332">
+               </Location>
+               <Location
+                  uuid = "8A892F2C-5D9E-4090-A2A3-4E0496BBBB62 - 1469f081bc097fba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Pathfinding.Greedy.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Greedy.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "248">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

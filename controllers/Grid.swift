@@ -11,6 +11,7 @@ import SwiftUI
 enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
     case astar
     case dijkstra
+    case greedy
     
     var id: Self { self }
     
@@ -18,6 +19,7 @@ enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
         switch self {
         case .astar: return "A-star"
         case .dijkstra: return "Dijkstra"
+        case .greedy: return "Greedy Best-First Search"
         }
     }
 }

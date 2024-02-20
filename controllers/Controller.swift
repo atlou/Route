@@ -45,26 +45,24 @@ class Controller: ObservableObject {
     func findPath() async {
         let start = grid.getStart()!
         let target = grid.getTarget()!
+        var path: [Node] = []
+        
         switch algo {
         case .astar:
-            let path = await AStar.shared.findPath(start: start, target: target) ?? []
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                // delay before showing path
-                self.displayPath(path: path) {
-                    self.isRunning = false
-                    self.isPathDisplayed = true
-                }
-            }
+            path = await AStar.shared.findPath(start: start, target: target) ?? []
         case .dijkstra:
-            let path = await Dijkstra.shared.findPath(start: start, target: target) ?? []
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                // delay before showing path
-                self.displayPath(path: path) {
-                    self.isRunning = false
-                    self.isPathDisplayed = true
-                }
+            path = await Dijkstra.shared.findPath(start: start, target: target) ?? []
+        case .greedy:
+            path = await Greedy.shared.findPath(start: start, target: target) ?? []
+        }
+        
+        let p = path
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            // delay before showing path
+            self.displayPath(path: p) {
+                self.isRunning = false
+                self.isPathDisplayed = true
             }
-            return
         }
     }
     
