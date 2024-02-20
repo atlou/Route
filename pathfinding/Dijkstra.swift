@@ -39,8 +39,12 @@ class Dijkstra {
         }
         
         while !unexplored.isEmpty {
-            let curr: DijkstraNode = unexplored.min(by: {
-                $0.distance < $1.distance
+            let curr: DijkstraNode = unexplored.min(by: { first, second in
+                if first.distance == second.distance {
+                    // when multiple nodes have the same distance, picking them using an arbitrary order gives a cleaner look to the visited nodes visualization
+                    return first.node.x > second.node.x || (first.node.x == second.node.x && first.node.y < second.node.y)
+                }
+                return first.distance < second.distance
             })!
             
             print(curr.distance)

@@ -48,7 +48,7 @@ class Controller: ObservableObject {
         switch algo {
         case .astar:
             let path = await AStar.shared.findPath(start: start, target: target) ?? []
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 // delay before showing path
                 self.displayPath(path: path) {
                     self.isRunning = false
@@ -57,7 +57,7 @@ class Controller: ObservableObject {
             }
         case .dijkstra:
             let path = await Dijkstra.shared.findPath(start: start, target: target) ?? []
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 // delay before showing path
                 self.displayPath(path: path) {
                     self.isRunning = false

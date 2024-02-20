@@ -90,13 +90,9 @@ struct NodeView: View {
 
     private func setVisited() {
         color = Color(.gridVisitedLight)
-        withAnimation(.bouncy.speed(1)) {
+        withAnimation(.bouncy.speed(0.35)) {
             scale = 1
-            opacity = 0.3
-        } completion: {
-            withAnimation(.bouncy.speed(1)) {
-                opacity = 1
-            }
+            opacity = 1
         }
     }
 
