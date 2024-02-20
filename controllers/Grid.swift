@@ -55,7 +55,7 @@ class Grid: ObservableObject {
     let width: Int
     let height: Int
     
-    static let shared = Grid(width: 29, height: 26)
+    static let shared = Grid(width: 29, height: 25)
     
     private init(width: Int, height: Int) {
         // initialize nodes
