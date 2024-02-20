@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DescriptionView: View {
-    let text: String
+    let text: LocalizedStringKey
     var body: some View {
         ScrollView {
             Text(text == "" ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." : text)
@@ -32,7 +32,7 @@ struct AlgorithmPicker: View {
     var body: some View {
         Picker("Pathfinding", selection: $selection) {
             ForEach(PathfindingAlgo.allCases) { algo in
-                Text(String(describing: algo).capitalized)
+                Text(String(describing: algo))
                     .fontDesign(.rounded)
                     .foregroundStyle(.white)
                     .fontWeight(.regular)
@@ -64,7 +64,7 @@ struct PanelView: View {
         VStack {
             AlgorithmPicker(selection: $controller.algo)
 
-            DescriptionView(text: "")
+            DescriptionView(text: controller.algo.detailedDescription)
 
             Spacer()
             VStack(spacing: 10) {

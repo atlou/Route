@@ -7,9 +7,34 @@
 
 import Foundation
 
+enum DrawingMode: CaseIterable, Identifiable {
+    case start
+    case target
+    case wall
+    case erase
+    
+    var id: Self { self }
+}
+
+enum Speed: Double, CaseIterable, Identifiable {
+    case fast = 0.01
+    case medium = 0.015
+    case slow = 0.05
+    
+    var ms: Double {
+        return rawValue * 1_000
+    }
+    
+    var ns: Double {
+        return rawValue * 1_000_000_000
+    }
+    
+    var id: Self { self }
+}
+
 class Controller: ObservableObject {
     @Published var drawingMode: DrawingMode = .start
-    @Published var algo: PathfindingAlgo = .astar
+    @Published var algo: PathfindingAlgo = .dijkstra
     @Published var speed: Speed = .medium
     @Published var isRunning = false
     private(set) var isPathDisplayed = false
