@@ -55,7 +55,15 @@ class Controller: ObservableObject {
                     self.isPathDisplayed = true
                 }
             }
-        default:
+        case .dijkstra:
+            let path = await Dijkstra.shared.findPath(start: start, target: target) ?? []
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                // delay before showing path
+                self.displayPath(path: path) {
+                    self.isRunning = false
+                    self.isPathDisplayed = true
+                }
+            }
             return
         }
     }
