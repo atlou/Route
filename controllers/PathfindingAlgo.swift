@@ -26,7 +26,7 @@ enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
     var detailedDescription: LocalizedStringKey {
         switch self {
         case .astar:
-            return "**A-Star** is like a smart navigator who finds a balance between being careful and quick.\n\nIt's not as careful as **Dijkstra's**, which helps it move faster, but that also means it might not always pick the very best path.\n\nAt the same time, it's not as rushed as **Greedy Best-First Search**, allowing it to avoid big mistakes and often find a good path, even if it takes a bit longer."
+            return "**A-Star** is like a smart navigator who finds a balance between being careful and quick.\n\nIt's not as careful as **Dijkstra's**, which helps it move faster, but that also means it might not always pick the very best path.\n\nAt the same time, it's not as rushed as **Greedy Best-First Search**. This makes it a little slower, but big mistakes are less likely to happen."
         case .dijkstra:
             return "**Dijkstra's** algorithm is like a thorough explorer that methodically checks every possible path to find the shortest one.\n\nThe great thing is, it always finds the shortest path.\n\nHowever, this comes at the cost of speed and memory because it does not ignore any path, even the ones that don't seem promising."
         case .greedy:

@@ -1,22 +1,4 @@
 import SwiftUI
-//
-// struct DeviceRotationViewModifier: ViewModifier {
-//    let action: (UIDeviceOrientation) -> Void
-//
-//    func body(content: Content) -> some View {
-//        content
-//            .onAppear()
-//            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-//                self.action(UIDevice.current.orientation)
-//            }
-//    }
-// }
-//
-// extension View {
-//    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-//        modifier(DeviceRotationViewModifier(action: action))
-//    }
-// }
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
@@ -33,13 +15,7 @@ struct ContentView: View {
             Color(.background)
                 .ignoresSafeArea()
 
-            // TODO: Uncomment to enable rotation screen
-
-//            if isLandscape() {
             MainView(controller: self.controller)
-//            } else {
-//                RotateView()
-//            }
 
             Group {
                 Color(.black)
@@ -51,15 +27,12 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showLaunch) {
             LaunchView(isShown: self.$showLaunch)
+                .presentationDetents([ // 100 points
+                    .height(100)
+                ])
                 .interactiveDismissDisabled()
                 .background(Color(.panel))
         }
-//        .onRotate { o in
-//            orientation = o
-//        }
-//        .onAppear {
-//            orientation = UIDevice.current.orientation
-//        }
     }
 }
 

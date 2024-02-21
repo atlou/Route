@@ -19,20 +19,16 @@ struct LaunchView: View {
                     Text("Pathfinding Algorithms")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    Text("In this app, you will learn about **four** pathfinding algorithms.")
+                    Text("In this app, you will learn about **three** pathfinding algorithms.")
                     Text("Here are some **tips**:")
                         .padding(.top, 24)
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
-                    Bullet(text: "Select a **pathfinding algorithm**", icon: "location.fill", color: Color(.gridWall))
-
-                    Bullet(text: "Move the **start** and **target** blocks to your desired location", icon: "arrow.up.and.down.and.arrow.left.and.right", color: Color(.gridWall))
-
+                    Bullet(text: "Select a **pathfinding algorithm**", icon: "filemenu.and.selection", color: Color(.gridWall))
+                    Bullet(text: "Move the **start** and **target** blocks to your desired locations", icon: "arrow.up.and.down.and.arrow.left.and.right", color: Color(.gridWall))
                     Bullet(text: "Draw **walls** on the grid to create obstacles", icon: "hand.draw.fill", color: Color(.gridWall))
                     Bullet(text: "Generate a **random maze** to try more complex paths", icon: "sparkles", color: Color(.gridWall))
-
-//                    Bullet(text: "Watch the algorithm do its thing!", icon: "popcorn.fill", color: Color(.gridWall))
                 }
                 .padding(.bottom, 60)
 
