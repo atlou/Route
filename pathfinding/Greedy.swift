@@ -29,22 +29,19 @@ class Greedy {
             return nil
         }
         
-        reset()
+        self.reset()
         
         var unexplored: Set<GreedyNode> = []
         var explored: Set<GreedyNode> = []
         
-        for item in self.map {
-            unexplored.insert(item.value)
-        }
-        
         start.setH(target: target.node)
-        explored.insert(start)
+        unexplored.insert(start)
         
         while !unexplored.isEmpty {
             let curr: GreedyNode = unexplored.min(by: { $0.h < $1.h })!
             
             unexplored.remove(curr)
+            explored.insert(curr)
             
             do {
                 try await Task.sleep(nanoseconds: UInt64(Controller.shared.speed.ns))
@@ -80,7 +77,7 @@ class Greedy {
                 neighbor.setH(target: target.node)
                 neighbor.setPrev(node: curr)
                 
-                explored.insert(neighbor)
+                unexplored.insert(neighbor)
             }
         }
         
@@ -88,7 +85,7 @@ class Greedy {
     }
     
     func reset() {
-        for item in map {
+        for item in self.map {
             item.value.reset()
         }
     }
