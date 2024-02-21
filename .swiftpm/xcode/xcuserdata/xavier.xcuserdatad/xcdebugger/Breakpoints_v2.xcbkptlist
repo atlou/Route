@@ -227,5 +227,429 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "338F6153-2754-4390-862C-1222114765AA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "338F6153-2754-4390-862C-1222114765AA - 40d9eccf5eb904a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "684">
+               </Location>
+               <Location
+                  uuid = "338F6153-2754-4390-862C-1222114765AA - a960c92959077255"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "920">
+               </Location>
+               <Location
+                  uuid = "338F6153-2754-4390-862C-1222114765AA - 40d9eccf5eb904a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "700">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74156163-A027-4972-8499-5EFEAC4880D3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "74156163-A027-4972-8499-5EFEAC4880D3 - 40d9eccf5eb90ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "1876">
+               </Location>
+               <Location
+                  uuid = "74156163-A027-4972-8499-5EFEAC4880D3 - a960c929590772b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "2096">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "071B927B-6617-4A0E-B26C-0A5BD41429E6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - aee8f7fb4dc3cb66"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1212">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - 40d9eccf5eb9764"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "796">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - a960c9295907757b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1016">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - 4eff71ba7aa1ef19"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Pathfinding.DijkstraNode, Pathfinding.DijkstraNode) -&gt; Swift.Bool in Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - aee8f7fb4dc3cb66"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1064">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - 40d9eccf5eb9764"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "4392">
+               </Location>
+               <Location
+                  uuid = "F01B5781-C2F6-4611-82B9-C34DED0F9848 - a960c9295907757b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "4612">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7DDE1CF8-E7BE-44A9-B5DB-450B9E44CD86"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7DDE1CF8-E7BE-44A9-B5DB-450B9E44CD86 - 40d9eccf5eb91b5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "7DDE1CF8-E7BE-44A9-B5DB-450B9E44CD86 - a960c929590773aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "668">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A603E54C-4A96-43CC-AD35-DD7FD47286D9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A9B0E2A-C292-4788-8CCA-DA4D2A463472"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84BB940C-52A7-47AF-AB36-D89A2051EE2F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D088E12-4025-472A-B5E9-AA39B9C2ABB9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "pathfinding/Dijkstra.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "findPath(start:target:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2D088E12-4025-472A-B5E9-AA39B9C2ABB9 - 40d9eccf5eb9d30"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "3204">
+               </Location>
+               <Location
+                  uuid = "2D088E12-4025-472A-B5E9-AA39B9C2ABB9 - a960c92959077f2f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "3424">
+               </Location>
+               <Location
+                  uuid = "2D088E12-4025-472A-B5E9-AA39B9C2ABB9 - 40d9eccf5eb9d1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "2964">
+               </Location>
+               <Location
+                  uuid = "2D088E12-4025-472A-B5E9-AA39B9C2ABB9 - a960c92959077f00"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Pathfinding.Dijkstra.findPath(start: Pathfinding.Node, target: Pathfinding.Node) async -&gt; Swift.Optional&lt;Swift.Array&lt;Pathfinding.Node&gt;&gt;"
+                  moduleName = "Pathfinding"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xavier/Documents/SDC2024/Pathfinding.swiftpm/pathfinding/Dijkstra.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "3184">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

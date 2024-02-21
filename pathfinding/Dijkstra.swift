@@ -32,11 +32,10 @@ class Dijkstra {
         self.resetNodes()
         
         var unexplored: Set<DijkstraNode> = []
+        var explored: Set<DijkstraNode> = []
         start.setDistance(distance: 0)
         
-        for item in self.map {
-            unexplored.insert(item.value)
-        }
+        unexplored.insert(start)
         
         while !unexplored.isEmpty {
             let curr: DijkstraNode = unexplored.min(by: { first, second in
@@ -47,9 +46,8 @@ class Dijkstra {
                 return first.distance < second.distance
             })!
             
-            print(curr.distance)
-            
             unexplored.remove(curr)
+            explored.insert(curr)
             
             do {
                 try await Task.sleep(nanoseconds: UInt64(Controller.shared.speed.ns))
@@ -64,30 +62,37 @@ class Dijkstra {
             
             // is path found?
             if curr == target {
+                print("path found")
                 // backtrack to start node
                 var currentPathTile = target
                 var path: [Node] = []
                 
                 while currentPathTile != start {
                     path.append(currentPathTile.node)
-                    currentPathTile = currentPathTile.prev!
+                    guard let prev = currentPathTile.prev else {
+                        return nil
+                    }
+                    currentPathTile = prev
                 }
                 
                 return path
             }
             
             let neighbors = curr.node.neighbors.filter {
-                $0.isWalkable() && unexplored.contains(self.map[$0]!)
+                $0.isWalkable() && !explored.contains(self.map[$0]!)
             }
             
             for neighbor in neighbors {
                 let neighbor = self.map[neighbor]!
+                
                 let dist = curr.distance + Int(curr.node.getDistance(from: neighbor.node))
                 
                 if dist < neighbor.distance {
                     neighbor.setDistance(distance: dist)
                     neighbor.setPrev(node: curr)
                 }
+                
+                unexplored.insert(neighbor)
             }
         }
         
@@ -108,12 +113,12 @@ class DijkstraNode: Hashable {
     
     init(node: Node) {
         self.node = node
-        self.distance = Int.max
+        self.distance = Int.max / 2
     }
     
     func reset() {
         self.prev = nil
-        self.distance = Int.max
+        self.distance = Int.max / 2
     }
     
     func setPrev(node: DijkstraNode) {
@@ -130,5 +135,11 @@ class DijkstraNode: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.node)
+    }
+}
+
+extension DijkstraNode: CustomStringConvertible {
+    var description: String {
+        return "DijkstraNode(\(self.node.x), \(self.node.y)"
     }
 }

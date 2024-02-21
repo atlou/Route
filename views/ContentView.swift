@@ -1,22 +1,22 @@
 import SwiftUI
-
-struct DeviceRotationViewModifier: ViewModifier {
-    let action: (UIDeviceOrientation) -> Void
-
-    func body(content: Content) -> some View {
-        content
-            .onAppear()
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-                self.action(UIDevice.current.orientation)
-            }
-    }
-}
-
-extension View {
-    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
-        modifier(DeviceRotationViewModifier(action: action))
-    }
-}
+//
+// struct DeviceRotationViewModifier: ViewModifier {
+//    let action: (UIDeviceOrientation) -> Void
+//
+//    func body(content: Content) -> some View {
+//        content
+//            .onAppear()
+//            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+//                self.action(UIDevice.current.orientation)
+//            }
+//    }
+// }
+//
+// extension View {
+//    func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
+//        modifier(DeviceRotationViewModifier(action: action))
+//    }
+// }
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
@@ -35,11 +35,11 @@ struct ContentView: View {
 
             // TODO: Uncomment to enable rotation screen
 
-            if isLandscape() {
-                MainView(controller: self.controller)
-            } else {
-                RotateView()
-            }
+//            if isLandscape() {
+            MainView(controller: self.controller)
+//            } else {
+//                RotateView()
+//            }
 
             Group {
                 Color(.black)
@@ -54,12 +54,12 @@ struct ContentView: View {
                 .interactiveDismissDisabled()
                 .background(Color(.panel))
         }
-        .onRotate { o in
-            orientation = o
-        }
-        .onAppear {
-            orientation = UIDevice.current.orientation
-        }
+//        .onRotate { o in
+//            orientation = o
+//        }
+//        .onAppear {
+//            orientation = UIDevice.current.orientation
+//        }
     }
 }
 
