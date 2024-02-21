@@ -1,6 +1,6 @@
 //
-//  MazeGeneration.swift
-//
+//  MazeGenerator.swift
+//  Route
 //
 //  Created by Xavier on 2024-02-18.
 //
@@ -90,21 +90,22 @@ enum MazeGenerator {
         }
     }
 }
+
 //
-//class MazeGeneration {
+// class MazeGeneration {
 //    let grid = Grid.shared
-//    
+//
 //    static let shared = MazeGeneration()
-//    
+//
 //    private init() {}
-//    
+//
 //    func generate() {
 //        // draw sides
 //        drawSquare()
-//        
+//
 //        divide(x: 0, y: 0, width: grid.width, height: grid.height)
 //    }
-//    
+//
 //    private func drawSquare() {
 //        for x in 0...grid.width - 1 {
 //            grid.setWall(x: x, y: 0)
@@ -115,7 +116,7 @@ enum MazeGenerator {
 //            grid.setWall(x: grid.width - 1, y: y)
 //        }
 //    }
-//    
+//
 //    private func getOrientation(width: Int, height: Int) -> Orientation {
 //        if width < height {
 //            return .horizontal
@@ -124,40 +125,40 @@ enum MazeGenerator {
 //        }
 //        return Orientation.allCases.randomElement()!
 //    }
-//    
+//
 //    private func divide(x: Int, y: Int, width: Int, height: Int) {
 //        if width < 2 || height < 2 { return }
-//        
+//
 //        let orientation = getOrientation(width: width, height: height)
-//        
+//
 //        var wallX: Int
 //        var wallY: Int
 //        var holeX: Int
 //        var holeY: Int
 //        var length: Int
-//        
+//
 //        if orientation == .horizontal {
 //            if width < 5 { return }
 //            wallX = x
 //            wallY = y + (1...height - 3).filter { $0 % 2 == 0 }.randomElement()!
-//            
+//
 //            holeX = wallX + (1...width - 2).filter { $0 % 2 == 1 }.randomElement()!
 //            holeY = wallY
-//            
+//
 //            length = width
 //        } else {
 //            if height < 5 { return }
 //            wallX = x + (1...width - 3).filter { $0 % 2 == 0 }.randomElement()!
 //            wallY = y
-//            
+//
 //            holeX = wallX
 //            holeY = wallY + (1...height - 2).filter { $0 % 2 == 1 }.randomElement()!
-//            
+//
 //            length = height
 //        }
-//        
+//
 //        draw(x: wallX, y: wallY, length: length, orientation: orientation, holeX: holeX, holeY: holeY)
-//        
+//
 //        if orientation == .horizontal {
 //            divide(x: x, y: y, width: width, height: wallY - y + 1)
 //            divide(x: x, y: wallY, width: width, height: height - wallY + y)
@@ -166,7 +167,7 @@ enum MazeGenerator {
 //            divide(x: wallX, y: y, width: width - wallX + x, height: height)
 //        }
 //    }
-//    
+//
 //    private func draw(x: Int, y: Int, length: Int, orientation: Orientation, holeX: Int, holeY: Int) {
 //        if orientation == .horizontal {
 //            for i in x..<x + length {
@@ -182,4 +183,4 @@ enum MazeGenerator {
 //            }
 //        }
 //    }
-//}
+// }

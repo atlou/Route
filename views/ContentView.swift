@@ -3,12 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var controller = Controller.shared
     @State private var showLaunch = true // TODO: True to show launch screen
-//    @State private var landscape = false
-    @State private var orientation: UIDeviceOrientation = .unknown
-
-    func isLandscape() -> Bool {
-        return orientation == .landscapeLeft || orientation == .landscapeRight
-    }
 
     var body: some View {
         ZStack {

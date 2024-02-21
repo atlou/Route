@@ -17,7 +17,6 @@ struct DescriptionView: View {
                     .foregroundStyle(.white)
                     .padding(14)
                     .padding(.bottom, 30)
-                    //                .font(.subheadline)
                     .frame(maxWidth: .infinity)
                     .id(0)
             }
@@ -36,7 +35,6 @@ struct DescriptionView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(.background))
             }
-            .padding(.horizontal, 20)
             .onChange(of: text) {
                 withAnimation {
                     scroll.scrollTo(0, anchor: .top)
@@ -46,33 +44,45 @@ struct DescriptionView: View {
     }
 }
 
-struct AlgorithmPicker: View {
+struct AlgorithmPickerButton: View {
     @Binding var selection: PathfindingAlgo
+    let algo: PathfindingAlgo
+
+    @State private var opacity = 1.0
+
     var body: some View {
-        Picker("Pathfinding", selection: $selection) {
-            ForEach(PathfindingAlgo.allCases) { algo in
-                Text(String(describing: algo))
-                    .fontDesign(.rounded)
-                    .foregroundStyle(.white)
-                    .fontWeight(.regular)
-                    .font(.body)
-            }
+        let selected = selection == algo
+        HStack(spacing: 10) {
+            Circle()
+                .fill(Color(.grid))
+                .frame(width: 16)
+                .overlay {
+                    if selected {
+                        Circle()
+                            .fill(.white)
+                            .padding(5)
+                    } else {
+                        Circle()
+                            .fill(Color(.background))
+                            .padding(1.5)
+                    }
+                }
+            Text(algo.description)
+                .foregroundStyle(.white)
+                .fontWeight(.medium)
+                .fontDesign(.rounded)
+            Spacer()
         }
-        .pickerStyle(.wheel)
-        .tint(.white)
-        .brightness(1)
-        .contrast(1)
+        .padding(.vertical, 8)
+        .padding(.leading, 14)
         .background {
-            ZStack {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(.background).opacity(1))
-                    .saturation(1.05)
-                    .brightness(-0.1)
-                    .frame(height: 32)
-                    .padding(.horizontal, 9)
-            }
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(.background))
         }
-        .padding(.horizontal, 11)
+        .opacity(opacity)
+        .onTapGesture {
+            selection = algo
+        }
     }
 }
 
@@ -80,24 +90,29 @@ struct PanelView: View {
     @ObservedObject var controller: Controller
 
     var body: some View {
-        VStack {
-            AlgorithmPicker(selection: $controller.algo)
+        VStack(spacing: 20) {
+            
+            // algo picker
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(PathfindingAlgo.allCases) { algo in
+                    AlgorithmPickerButton(selection: $controller.algo, algo: algo)
+                }
+            }
 
+            // description scroll view
             DescriptionView(text: controller.algo.detailedDescription)
                 .animation(.default.speed(2), value: controller.algo)
 
-            Spacer()
-            VStack(spacing: 10) {
+            // buttons
+            VStack(spacing: 8) {
                 Button {
                     withAnimation(.default.speed(2)) {
                         controller.generateMaze()
                     }
                 } label: {
                     Text("Generate Maze")
-//                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
                 .tint(Color(.background))
 
                 Button {
@@ -106,10 +121,8 @@ struct PanelView: View {
                     }
                 } label: {
                     Text("Clear Grid")
-//                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
                 .tint(Color(.background))
 
                 Button {
@@ -118,22 +131,22 @@ struct PanelView: View {
                     Text("Find Path")
                         .frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
                 .tint(Color(.grid))
             }
 //            .disabled(controller.isRunning)
+            .buttonStyle(.borderedProminent)
             .allowsHitTesting(!controller.isRunning)
             .opacity(controller.isRunning ? 0.3 : 1)
             .animation(.default, value: controller.isRunning)
             .fontDesign(.rounded)
             .fontWeight(.medium)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
-            .padding(.top, 14)
         }
+        .padding(20)
     }
 }
 
 #Preview {
-    ContentView()
+    PanelView(controller: Controller.shared)
+        .background(Color(.panel))
+        .frame(width: 300)
 }

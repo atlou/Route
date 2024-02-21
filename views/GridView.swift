@@ -9,12 +9,10 @@ import SwiftUI
 
 struct GridView: View {
     @ObservedObject var controller: Controller
-//    let size: Double
     @Binding var size: CGSize
     @State private var isDragging = false
 
     func getCoordinates(_ location: CGPoint) -> (x: Int, y: Int) {
-//        return (Int(location.x / size), Int(location.y / size))
         return (Int(location.x / getCellSize()), Int(location.y / getCellSize()))
     }
 

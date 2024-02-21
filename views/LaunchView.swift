@@ -16,10 +16,10 @@ struct LaunchView: View {
 
             VStack(alignment: .leading, spacing: 24) {
                 VStack(alignment: .leading, spacing: 12) {
-                    Text("Pathfinding Algorithms")
+                    Text("Route")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                    Text("In this app, you will learn about **three** pathfinding algorithms.")
+                    Text("In this app, you will learn about three **pathfinding algorithms**.")
                     Text("Here are some **tips**:")
                         .padding(.top, 24)
                 }
