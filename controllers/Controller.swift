@@ -41,7 +41,7 @@ class Controller: ObservableObject {
     
     let PATH_DRAWING_DELAY = 0.03
     let grid = Grid.shared
-    let maze = MazeGeneration.shared
+//    let maze = MazeGeneration.shared
     
     static let shared = Controller()
     
@@ -64,7 +64,7 @@ class Controller: ObservableObject {
         clear()
         
         // small delay to make sure the clearing animations are done
-        maze.generate()
+        MazeGenerator.generate(grid: grid)
     }
     
     func findPath() async {
@@ -74,16 +74,16 @@ class Controller: ObservableObject {
         
         switch algo {
         case .astar:
-            path = await AStar.shared.findPath(start: start, target: target) ?? []
+            path = await Pathfinder.astar(nodes: grid.nodes, start: start, target: target) ?? []
         case .dijkstra:
-            path = await Dijkstra.shared.findPath(start: start, target: target) ?? []
+            path = await Pathfinder.dijkstra(nodes: grid.nodes, start: start, target: target) ?? []
         case .greedy:
-            path = await Greedy.shared.findPath(start: start, target: target) ?? []
+            path = await Pathfinder.greedy(nodes: grid.nodes, start: start, target: target) ?? []
         }
         
         let p = path
+        // delay before showing path to let animations finish
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            // delay before showing path
             self.displayPath(path: p) {
                 self.isRunning = false
                 self.isPathDisplayed = true
@@ -97,7 +97,7 @@ class Controller: ObservableObject {
             guard let node = queue.popLast() else {
                 timer.invalidate()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                    // delay after showing path to let animations end
+                    // delay after showing path to let animation end
                     completion()
                 }
                 return

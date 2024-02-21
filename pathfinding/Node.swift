@@ -20,7 +20,7 @@ enum NodeType {
     case target
 }
 
-class Node: Hashable, CustomStringConvertible, ObservableObject {
+class Node: Hashable, ObservableObject {
     let x: Int
     let y: Int
     private(set) var neighbors: Set<Node>
@@ -28,28 +28,30 @@ class Node: Hashable, CustomStringConvertible, ObservableObject {
     @Published var type: NodeType
     @Published var state: NodeState
 
+    var hCost: Int
+    var gCost: Int
+    var fCost: Int {
+        return hCost + gCost
+    }
+
+    var parent: Node?
+
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
         self.neighbors = []
         self.type = .normal
         self.state = .base
-    }
-
-    init(node: Node) {
-        self.x = node.x
-        self.y = node.y
-        self.neighbors = node.neighbors
-        self.type = node.type
-        self.state = node.state
+        self.hCost = 0
+        self.gCost = 0
     }
 
     func isWalkable() -> Bool {
         return type != .wall
     }
 
-    func getDistance(from node: Node) -> Float {
-        return Float(abs(node.x - x) + abs(node.y - y))
+    func getDistance(from node: Node) -> Int {
+        return abs(node.x - x) + abs(node.y - y)
     }
 
     func addNeighbor(node: Node) {
