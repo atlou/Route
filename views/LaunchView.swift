@@ -1,6 +1,6 @@
 //
 //  LaunchView.swift
-//
+//  Route
 //
 //  Created by Xavier on 2024-02-19.
 //
@@ -25,10 +25,10 @@ struct LaunchView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
-                    Bullet(text: "Select a **pathfinding algorithm**", icon: "filemenu.and.selection", color: Color(.gridWall))
-                    Bullet(text: "Move the **start** and **target** blocks to your desired locations", icon: "arrow.up.and.down.and.arrow.left.and.right", color: Color(.gridWall))
-                    Bullet(text: "Draw **walls** on the grid to create obstacles", icon: "hand.draw.fill", color: Color(.gridWall))
-                    Bullet(text: "Generate a **random maze** to try more complex paths", icon: "sparkles", color: Color(.gridWall))
+                    Tip(text: "Select a **pathfinding algorithm**", icon: "filemenu.and.selection", color: Color(.gridWall))
+                    Tip(text: "Move the **start** and **target** blocks to your desired locations", icon: "arrow.up.and.down.and.arrow.left.and.right", color: Color(.gridWall))
+                    Tip(text: "Draw **walls** on the grid to create obstacles", icon: "hand.draw.fill", color: Color(.gridWall))
+                    Tip(text: "Generate a **random maze** to try more complex paths", icon: "sparkles", color: Color(.gridWall))
                 }
                 .padding(.bottom, 60)
 
@@ -51,7 +51,7 @@ struct LaunchView: View {
     }
 }
 
-struct Bullet: View {
+struct Tip: View {
     let text: LocalizedStringKey
     let icon: String
     let color: Color
@@ -62,11 +62,9 @@ struct Bullet: View {
                 .foregroundStyle(color.gradient)
                 .font(.title)
                 .frame(width: 48, height: 48)
-//                .border(.green)
             Text(text)
                 .lineLimit(.max)
                 .frame(maxHeight: .infinity)
-//                .border(.red)
         }
         .fixedSize(horizontal: false, vertical: true)
     }

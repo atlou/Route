@@ -1,6 +1,6 @@
 //
 //  MainView.swift
-//
+//  Route
 //
 //  Created by Xavier on 2024-02-19.
 //
@@ -26,7 +26,6 @@ struct MainView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .overlay {
                     GeometryReader { proxy in
-//                            Text("\(gridSize.width) \(gridSize.height)")
                         Color.clear
                             .onAppear {
                                 gridSize = proxy.frame(in: .global).size
@@ -37,9 +36,6 @@ struct MainView: View {
                     }
                 }
                 .padding(-1)
-//                .layoutPriority(1)
-//                .aspectRatio(1, contentMode: .fit)
-//                .border(.green)
                 .clipShape(.rect(cornerRadius: 24))
                 .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
         }

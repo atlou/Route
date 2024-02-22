@@ -1,55 +1,57 @@
 //
-//  File.swift
-//
+//  Controller.swift
+//  Route
 //
 //  Created by Xavier on 2024-02-17.
 //
 
 import Foundation
 
+/// User drawing mode
 enum DrawingMode: CaseIterable, Identifiable {
+    /// Moving the start block
     case start
+    /// Moving the target block
     case target
+    /// Drawing walls
     case wall
+    /// Erasing walls
     case erase
     
     var id: Self { self }
 }
 
-enum Speed: Double, CaseIterable, Identifiable {
-    case fast = 0.01
-    case medium = 0.015
-    case slow = 0.05
-    
-    var ms: Double {
-        return rawValue * 1_000
-    }
-    
-    var ns: Double {
-        return rawValue * 1_000_000_000
-    }
-    
-    var id: Self { self }
-}
-
+/// Main controller of the app
+/// Manages app flow and user input
 class Controller: ObservableObject {
+    /// Current drawing mode for the grid
     @Published var drawingMode: DrawingMode = .start
+    /// Selected pathfinding algorithm
     @Published var algo: PathfindingAlgo = .dijkstra
-    @Published var speed: Speed = .medium
+    ////// True if the pathfinding is in progress, false otherwise
     @Published var isRunning = false
+    /// True if a path or visited nodes are currently disaplayed on the grid, false otherwise
     private(set) var isPathDisplayed = false
     
+    /// Time delay between each node (seconds)
     let PATH_DRAWING_DELAY = 0.03
-    let grid = Grid.shared
-//    let maze = MazeGeneration.shared
+    /// Time delay after path is drawn (seconds)
+    let AFTER_PATH_DELAY = 0.75
+    /// Time delay before path is drawn (seconds)
+    let BEFORE_PATH_DELAY = 0.3
     
+    /// Grid singleton
+    let grid = Grid.shared
+    
+    /// Singleton object
     static let shared = Controller()
     
+    /// Private initializer to make Controller a singleton
     private init() {}
     
+    /// Main function to run the pathfinding algorithm
     func run() {
         if isRunning { return }
-        if !grid.isReady() { return }
         
         isRunning = true
         
@@ -60,6 +62,7 @@ class Controller: ObservableObject {
         }
     }
     
+    /// Uses MazeGenerator to generate a maze on the grid
     func generateMaze() {
         clear()
         
@@ -67,6 +70,10 @@ class Controller: ObservableObject {
         MazeGenerator.generate(grid: grid)
     }
     
+    /**
+     Finds a path on the grid using the selected pathfinding algorithm
+     The function runs asynchronously to allow the grid to be updated slowly.
+     */
     func findPath() async {
         let start = grid.getStart()!
         let target = grid.getTarget()!
@@ -82,30 +89,36 @@ class Controller: ObservableObject {
         }
         
         let p = path
-        // delay before showing path to let animations finish
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.displayPath(path: p) {
-                self.isRunning = false
-                self.isPathDisplayed = true
-            }
+        // Small delay before displaying the path
+        DispatchQueue.main.asyncAfter(deadline: .now() + BEFORE_PATH_DELAY) {
+            self.displayPath(path: p)
         }
     }
     
-    func displayPath(path: [Node], completion: @escaping () -> Void) {
+    /// Displays a path on the grid
+    /// Uses a Timer to display the path slowly
+    /// - Parameter path: Node array that will be displayed in reversed order
+    func displayPath(path: [Node]) {
         var queue = path
         _ = Timer.scheduledTimer(withTimeInterval: PATH_DRAWING_DELAY, repeats: true) { timer in
             guard let node = queue.popLast() else {
                 timer.invalidate()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                    // delay after showing path to let animation end
-                    completion()
+                // Small delay after displaying the path to allow the animations to finish
+                DispatchQueue.main.asyncAfter(deadline: .now() + self.AFTER_PATH_DELAY) {
+                    // Pathfinding is done
+                    self.isRunning = false
+                    self.isPathDisplayed = true
                 }
                 return
             }
-            node.state = .path
+            node.state = .path // Update node state
         }
     }
 
+    /// Draws a node on the grid according to the current `drawingMode`
+    /// - Parameters:
+    ///   - x: horizontal position of the node on the grid
+    ///   - y: vertical position of the node on the grid
     func draw(x: Int, y: Int) {
         if isRunning { return }
         if isPathDisplayed { grid.clearPath() }
@@ -122,6 +135,7 @@ class Controller: ObservableObject {
         }
     }
     
+    /// Clears the grid
     func clear() {
         if isRunning { return }
         grid.clearGrid()

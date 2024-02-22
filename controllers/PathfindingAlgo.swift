@@ -1,6 +1,6 @@
 //
 //  PathfindingAlgo.swift
-//  Pathfinding
+//  Route
 //
 //  Created by Xavier on 2024-02-20.
 //
@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+/// Pathfinding algorithm for user selection
 enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
     case dijkstra
     case greedy
@@ -15,6 +16,7 @@ enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
 
     var id: Self { self }
 
+    /// The name of the algorithm as will be shown in UI
     var description: String {
         switch self {
         case .astar: return "A-Star"
@@ -23,6 +25,7 @@ enum PathfindingAlgo: CaseIterable, Identifiable, CustomStringConvertible {
         }
     }
 
+    /// The description of the algorithm that explains the algorithm's characteristics
     var detailedDescription: LocalizedStringKey {
         switch self {
         case .astar:

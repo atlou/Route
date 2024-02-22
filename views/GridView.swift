@@ -1,6 +1,6 @@
 //
 //  GridView.swift
-//  Pathfinding
+//  Route
 //
 //  Created by Xavier on 2024-02-06.
 //

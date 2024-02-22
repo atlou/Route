@@ -1,8 +1,15 @@
+//
+//  ContentView.swift
+//  Route
+//
+//  Created by Xavier on 2024-02-06.
+//
+
 import SwiftUI
 
 struct ContentView: View {
     @StateObject var controller = Controller.shared
-    @State private var showLaunch = true // TODO: True to show launch screen
+    @State private var showLaunch = true
 
     var body: some View {
         ZStack {

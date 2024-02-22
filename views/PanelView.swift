@@ -1,6 +1,6 @@
 //
 //  PanelView.swift
-//  Pathfinding
+//  Route
 //
 //  Created by Xavier on 2024-02-14.
 //
@@ -91,7 +91,6 @@ struct PanelView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            
             // algo picker
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(PathfindingAlgo.allCases) { algo in
@@ -133,7 +132,6 @@ struct PanelView: View {
                 }
                 .tint(Color(.grid))
             }
-//            .disabled(controller.isRunning)
             .buttonStyle(.borderedProminent)
             .allowsHitTesting(!controller.isRunning)
             .opacity(controller.isRunning ? 0.3 : 1)
