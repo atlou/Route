@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Welcome view that presents the app and lists a few tips
 struct LaunchView: View {
     @Binding var isShown: Bool
 
@@ -15,6 +16,7 @@ struct LaunchView: View {
             Color(Color(.panel))
 
             VStack(alignment: .leading, spacing: 24) {
+                // header
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Route")
                         .font(.largeTitle)
@@ -24,6 +26,7 @@ struct LaunchView: View {
                         .padding(.top, 24)
                 }
 
+                // tips
                 VStack(alignment: .leading, spacing: 16) {
                     Tip(text: "Select a **pathfinding algorithm**", icon: "filemenu.and.selection", color: Color(.gridWall))
                     Tip(text: "Move the **start** and **target** blocks to your desired locations", icon: "arrow.up.and.down.and.arrow.left.and.right", color: Color(.gridWall))
@@ -32,6 +35,7 @@ struct LaunchView: View {
                 }
                 .padding(.bottom, 60)
 
+                // continue button
                 HStack {
                     Spacer()
                     Button("Continue") {
@@ -51,6 +55,7 @@ struct LaunchView: View {
     }
 }
 
+/// View for a tip used in `LaunchView`
 struct Tip: View {
     let text: LocalizedStringKey
     let icon: String

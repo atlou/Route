@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// View to display a node object
 struct NodeView: View {
     @ObservedObject var node: Node
 
@@ -67,6 +68,7 @@ struct NodeView: View {
             }
     }
 
+    /// Animates a transition from a visited node to a path node
     private func setPath() {
         // spawn overlay with new color
         overlayColor = Color(.gridPath)
@@ -88,6 +90,7 @@ struct NodeView: View {
         }
     }
 
+    /// Animates a transition from a base node to a visited node
     private func setVisited() {
         color = Color(.gridVisitedLight)
         withAnimation(.bouncy.speed(0.35)) {
@@ -96,6 +99,8 @@ struct NodeView: View {
         }
     }
 
+    /// Display a block on the node with optional animation
+    /// - Parameter anim: `True` to animate the transition, `False` otherwise
     private func show(anim: Bool) {
         color = nodeColor()
         withAnimation(.bouncy.speed(2)) {
@@ -104,6 +109,8 @@ struct NodeView: View {
         }
     }
 
+    /// Remove a block from the node with optional animation
+    /// - Parameter anim: `True` to animate the transition, `False` otherwise
     private func hide(anim: Bool) {
         if anim {
             withAnimation(.bouncy.speed(2)) {
@@ -119,6 +126,8 @@ struct NodeView: View {
         }
     }
 
+    /// Determines the color the node should have based on its type
+    /// - Returns: The color of the node
     private func nodeColor() -> Color {
         switch node.type {
         case .normal: return .clear

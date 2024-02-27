@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// View containing the left panel and the grid
 struct MainView: View {
     @ObservedObject var controller: Controller
     @State private var gridSize: CGSize = .zero

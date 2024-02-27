@@ -28,7 +28,7 @@ class Controller: ObservableObject {
     @Published var drawingMode: DrawingMode = .start
     /// Selected pathfinding algorithm
     @Published var algo: PathfindingAlgo = .dijkstra
-    ////// True if the pathfinding is in progress, false otherwise
+    /// True if the pathfinding is in progress, false otherwise
     @Published var isRunning = false
     /// True if a path or visited nodes are currently disaplayed on the grid, false otherwise
     private(set) var isPathDisplayed = false

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Base view of the app
 struct ContentView: View {
     @StateObject var controller = Controller.shared
     @State private var showLaunch = true

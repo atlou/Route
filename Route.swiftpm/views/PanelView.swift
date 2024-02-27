@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// View that dispalys a text in a scrollview
 struct DescriptionView: View {
     let text: LocalizedStringKey
     var body: some View {
@@ -44,6 +45,7 @@ struct DescriptionView: View {
     }
 }
 
+/// Radio Button for the algorithm selection
 struct AlgorithmPickerButton: View {
     @Binding var selection: PathfindingAlgo
     let algo: PathfindingAlgo
@@ -86,6 +88,7 @@ struct AlgorithmPickerButton: View {
     }
 }
 
+/// View that contains the algorithm picker, the algorithm description, and the main buttons
 struct PanelView: View {
     @ObservedObject var controller: Controller
 
@@ -133,7 +136,7 @@ struct PanelView: View {
                 .tint(Color(.grid))
             }
             .buttonStyle(.borderedProminent)
-            .allowsHitTesting(!controller.isRunning)
+            .allowsHitTesting(!controller.isRunning) // disable the buttons when the pathfinding is running
             .opacity(controller.isRunning ? 0.3 : 1)
             .animation(.default, value: controller.isRunning)
             .fontDesign(.rounded)
