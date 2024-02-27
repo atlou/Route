@@ -31,7 +31,7 @@ https://github.com/atlou/SSC2024/assets/30378214/7d4686e2-97b7-45cd-b997-cb673e1
 - Run the app using an **iPad** simulator in **landscape** mode.
 
 ### Installation
-1. Download the latest release.
+1. Clone the project.
 2. Open `Route.swiftpm` in Xcode.
 3. Choose a simulator (either iPad Pro 11-inch or iPad Pro 13-inch).
 4. Press `Run` to build and run the app.
