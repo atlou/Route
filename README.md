@@ -3,7 +3,7 @@
 ![route](https://github.com/atlou/Route/assets/30378214/c8f906cb-cfba-47a2-88c9-f0e8e5dc4fc2)
 
 
-Route is a Swift Playground app designed for the **Swift Student Challenge 2024**. The app allows users to visually grasp how those three **pathfinding algorithms** operate:
+Route is a Swift Playground app built for the **Swift Student Challenge 2024**. The app allows users to visually grasp how those three **pathfinding algorithms** operate:
 - A*
 - Dijkstra's
 - Greedy Best-First Search
